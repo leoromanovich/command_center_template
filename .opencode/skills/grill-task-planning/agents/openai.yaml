@@ -1,0 +1,6 @@
+interface:
+  display_name: "Grill Task Planning"
+  short_description: "Turn ambiguity into agent-ready plans"
+  default_prompt: "Use $grill-task-planning to turn this task into a verified agent-ready plan and durable docs."
+policy:
+  allow_implicit_invocation: true

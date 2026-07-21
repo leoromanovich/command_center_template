@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "benchmark-id",
+  "purpose": "replace-me",
+  "inputs": [
+    "repo-id:package:default"
+  ],
+  "baseline": "replace-me",
+  "policy": "replace-me",
+  "results": "external://replace-me",
+  "adapter": "nix/workflows/benchmark-id.nix"
+}

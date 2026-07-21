@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "repo-id",
+  "checkout": "repo-id",
+  "remote": "https://example.invalid/owner/repo-id.git",
+  "defaultBranch": "main",
+  "role": "replace-me",
+  "sourceInput": "repo-id",
+  "adapter": "nix/projects/repo-id.nix",
+  "status": "discovered"
+}

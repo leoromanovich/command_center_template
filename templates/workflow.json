@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "id": "workflow-id",
+  "purpose": "replace-me",
+  "inputs": [
+    "repo-id:package:default"
+  ],
+  "adapter": "nix/workflows/workflow-id.nix"
+}

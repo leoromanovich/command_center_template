@@ -1,0 +1,6 @@
+interface:
+  display_name: "Grill CC Bootstrap"
+  short_description: "Interrogate a CC bootstrap or migration"
+  default_prompt: "Use $grill-cc-bootstrap to create or migrate this Control Center through evidence-first grilling."
+policy:
+  allow_implicit_invocation: true

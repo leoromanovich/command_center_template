@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "name": "__CONTROL_CENTER_NAME__",
+  "status": "discovery",
+  "layout": {
+    "projectsRoot": "..",
+    "repositories": "../repos",
+    "worktrees": "../worktrees",
+    "worktreePattern": "{feature}/{repository}_wt"
+  }
+}

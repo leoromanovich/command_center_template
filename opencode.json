@@ -1,0 +1,11 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "permission": {
+    "skill": {
+      "*": "ask",
+      "grill-cc-bootstrap": "allow",
+      "grill-task-planning": "allow"
+    },
+    "external_directory": "ask"
+  }
+}

@@ -1,0 +1,12 @@
+# Локальные исследования и рабочий контекст: не коммитить.
+/.control-center-knowledge/
+/.notes/
+/source_repos/
+/cc_template/
+
+# Локальные и производные артефакты.
+/result
+/result-*
+/.direnv/
+/docs/.obsidian/
+/.cc-local/
