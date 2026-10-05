@@ -11,6 +11,7 @@ relations:
   - docs/rules/bootstrap.md
   - docs/rules/executable-processes.md
   - docs/rules/knowledge-layout.md
+  - docs/rules/knowledge-consolidation.md
   - docs/rules/project-adapters.md
   - docs/rules/task-planning.md
   - docs/rules/worktrees.md
@@ -23,6 +24,7 @@ relations:
 - [Bootstrap и миграция](rules/bootstrap.md)
 - [Исполняемые процессы](rules/executable-processes.md)
 - [Укладка Markdown-знаний](rules/knowledge-layout.md)
+- [Консолидация опыта задачи](rules/knowledge-consolidation.md)
 - [Подключение sibling-проектов](rules/project-adapters.md)
 - [Планирование агентных задач](rules/task-planning.md)
 - [Топология worktrees](rules/worktrees.md)
@@ -37,6 +39,7 @@ relations:
 - [Атомарные связанные заметки](decisions/0002-atomic-linked-notes.md)
 - [Template как временный seed](decisions/0003-template-as-seed.md)
 - [Lifecycle планов](decisions/0004-plan-lifecycle.md)
+- [Evidence-gated консолидация](decisions/0005-evidence-gated-consolidation.md)
 
 ## Текущий контекст
 

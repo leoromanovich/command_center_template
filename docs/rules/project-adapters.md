@@ -19,7 +19,7 @@ relations:
 
 ## Контракт проекта
 
-`catalog/repositories/<id>.json` фиксирует remote, default branch, роль, flake input, adapter и onboarding status. Descriptor создаётся `./cc repo add`; команды сборки в него не пишутся.
+`catalog/repositories/<id>.json` фиксирует remote, default branch, роль, flake input, adapter, project knowledge index и onboarding status. `./cc repo add` создаёт descriptor и `docs/projects/<id>/index.md`; команды сборки в них не пишутся.
 
 Адаптер создаётся через `ccLib.mkProject` и объявляет:
 

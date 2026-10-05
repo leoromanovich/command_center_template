@@ -7,5 +7,10 @@
     "repositories": "../repos",
     "worktrees": "../worktrees",
     "worktreePattern": "{feature}/{repository}_wt"
+  },
+  "knowledge": {
+    "consolidationRequired": true,
+    "candidateInbox": ".control-center-knowledge/candidates",
+    "daydreaming": "manual"
   }
 }

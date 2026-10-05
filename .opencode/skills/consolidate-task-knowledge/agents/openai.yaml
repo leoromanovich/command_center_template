@@ -1,0 +1,4 @@
+interface:
+  display_name: "Consolidate Task Knowledge"
+  short_description: "Extract verified lessons; run session retro"
+  default_prompt: "Use $consolidate-task-knowledge to review this implemented plan, promote only evidence-backed durable knowledge, and propose environment fixes traceable to this session."

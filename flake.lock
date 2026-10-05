@@ -1,0 +1,58 @@
+{
+  "nodes": {
+    "devenv": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778705847,
+        "narHash": "sha256-EQnZCy7r4VMO6KDoytxHBa0mFbM1D9g1kaDfs/s0YZA=",
+        "owner": "cachix",
+        "repo": "devenv",
+        "rev": "ea3d94ac9d6bf6a1313773170122ca4e2ef5a0be",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "ref": "v2.1.2",
+        "repo": "devenv",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1790750587,
+        "narHash": "sha256-VfjaoJ1Uyb7JZTrBgE5Jf2nhjtQPmD9KOd19HJwmZwM=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "78e9c786dc08cd4f3420c2395cd977206a9b1da2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-26.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "pilot-src": {
+      "flake": false,
+      "locked": {
+        "path": "./examples/devenv/fixture",
+        "type": "path"
+      },
+      "original": {
+        "path": "./examples/devenv/fixture",
+        "type": "path"
+      },
+      "parent": []
+    },
+    "root": {
+      "inputs": {
+        "devenv": "devenv",
+        "nixpkgs": "nixpkgs",
+        "pilot-src": "pilot-src"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

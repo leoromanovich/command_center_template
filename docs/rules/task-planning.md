@@ -13,6 +13,7 @@ relations:
   - docs/index.md
   - docs/decisions/0004-plan-lifecycle.md
   - docs/rules/knowledge-layout.md
+  - docs/rules/knowledge-consolidation.md
   - docs/rules/worktrees.md
   - docs/glossary/index.md
 ---
@@ -30,7 +31,8 @@ Task-plan хранит цель, объём, неизвестные, граф р
 - `./cc plan create` создаёт active plan из template.
 - `./cc plan accept` фиксирует явное согласование до implementation.
 - `./cc plan archive` требует причину отказа.
-- `./cc plan complete` требует accepted plan и evidence приёмки.
+- `./cc plan reflect` фиксирует evidence-backed retrospective и knowledge delta.
+- `./cc plan complete` требует accepted plan, reviewed reflection и evidence приёмки.
 - Копии одного plan ID в нескольких states запрещены.
 
 ## Агентный граф

@@ -19,7 +19,20 @@ EXPECTED_LAYOUT = {
     "worktrees": "../worktrees",
     "worktreePattern": "{feature}/{repository}_wt",
 }
+EXPECTED_CANDIDATE_INBOX = ".control-center-knowledge/candidates"
+DAYDREAMING_MODES = {"disabled", "manual", "scheduled"}
 PLAN_LIFECYCLES = ("active", "archived", "completed")
+
+
+def list_field(text: str, name: str) -> list[str] | None:
+    match = re.search(
+        rf"^{re.escape(name)}:\s*\n((?:- .+(?:\n|$))+)",
+        text,
+        re.MULTILINE,
+    )
+    if match is None:
+        return None
+    return [line[2:].strip() for line in match.group(1).splitlines()]
 
 
 def load_json(path: Path, errors: list[str]) -> dict[str, Any] | None:
@@ -65,7 +78,7 @@ def validate_repository(root: Path, path: Path, errors: list[str]) -> str | None
         errors.append(f"{relative}: schemaVersion must be 1")
     if data.get("status") not in REPOSITORY_STATUSES:
         errors.append(f"{relative}: unsupported status '{data.get('status')}'")
-    for field in ("remote", "defaultBranch", "role", "sourceInput", "adapter"):
+    for field in ("remote", "defaultBranch", "role", "sourceInput", "adapter", "knowledge"):
         if not isinstance(data.get(field), str) or not data[field]:
             errors.append(f"{relative}: '{field}' must be a non-empty string")
     remote = data.get("remote")
@@ -84,6 +97,13 @@ def validate_repository(root: Path, path: Path, errors: list[str]) -> str | None
         adapter = data.get("adapter")
         if isinstance(adapter, str) and not (root / adapter).is_file():
             errors.append(f"{relative}: adapter does not exist: {adapter}")
+    knowledge = data.get("knowledge")
+    expected_knowledge = f"docs/projects/{identifier}/index.md"
+    if isinstance(knowledge, str):
+        if knowledge != expected_knowledge:
+            errors.append(f"{relative}: knowledge must equal '{expected_knowledge}'")
+        elif not (root / knowledge).is_file():
+            errors.append(f"{relative}: knowledge index does not exist: {knowledge}")
     for field in placeholder_paths(data):
         errors.append(f"{relative}: unresolved placeholder at {field}")
     return identifier
@@ -144,8 +164,46 @@ def validate_plans(root: Path, errors: list[str]) -> None:
             planning_status = re.findall(r"^Planning status:\s+(.+)$", text, re.MULTILINE)
             if len(planning_status) != 1 or planning_status[0] not in {"draft", "accepted"}:
                 errors.append(f"{relative}: Planning status must uniquely equal 'draft' or 'accepted'")
+            reflection_status = re.findall(r"^Reflection status:\s+(.+)$", text, re.MULTILINE)
+            if len(reflection_status) != 1 or reflection_status[0] not in {"pending", "reviewed"}:
+                errors.append(f"{relative}: Reflection status must uniquely equal 'pending' or 'reviewed'")
             if lifecycle == "completed" and planning_status != ["accepted"]:
                 errors.append(f"{relative}: completed plan must have Planning status 'accepted'")
+            if lifecycle == "completed" and reflection_status != ["reviewed"]:
+                errors.append(f"{relative}: completed plan must have Reflection status 'reviewed'")
+
+            reflection_summary = re.findall(r"^Reflection summary:\s+(.+)$", text, re.MULTILINE)
+            reflection_evidence = list_field(text, "Reflection evidence")
+            knowledge_delta = list_field(text, "Knowledge delta")
+            if len(reflection_summary) != 1:
+                errors.append(f"{relative}: Reflection summary must occur exactly once")
+            if reflection_evidence is None:
+                errors.append(f"{relative}: Reflection evidence must be a non-empty list")
+            if knowledge_delta is None:
+                errors.append(f"{relative}: Knowledge delta must be a non-empty list")
+
+            if reflection_status == ["reviewed"]:
+                if reflection_summary == ["Not reviewed."]:
+                    errors.append(f"{relative}: reviewed reflection must have a summary")
+                if reflection_evidence is not None and "pending" in reflection_evidence:
+                    errors.append(f"{relative}: reviewed reflection must have evidence")
+                if knowledge_delta is not None:
+                    if "pending" in knowledge_delta:
+                        errors.append(f"{relative}: reviewed reflection must resolve Knowledge delta")
+                    if "none" in knowledge_delta and knowledge_delta != ["none"]:
+                        errors.append(f"{relative}: Knowledge delta 'none' cannot be combined with paths")
+                    for value in knowledge_delta:
+                        if value == "none":
+                            continue
+                        target = Path(value)
+                        resolved = (root / target).resolve()
+                        if (
+                            target.is_absolute()
+                            or ".." in target.parts
+                            or root not in resolved.parents
+                            or not resolved.is_file()
+                        ):
+                            errors.append(f"{relative}: invalid Knowledge delta path '{value}'")
 
 
 def validate(root: Path) -> list[str]:
@@ -164,6 +222,18 @@ def validate(root: Path) -> list[str]:
         errors.append(f"control-center.json: unsupported status '{status}'")
     if manifest.get("layout") != EXPECTED_LAYOUT:
         errors.append("control-center.json: layout does not match the Projects/repos/worktrees contract")
+    knowledge = manifest.get("knowledge")
+    if not isinstance(knowledge, dict):
+        errors.append("control-center.json: knowledge policy must be an object")
+    else:
+        if knowledge.get("consolidationRequired") is not True:
+            errors.append("control-center.json: knowledge.consolidationRequired must be true")
+        if knowledge.get("candidateInbox") != EXPECTED_CANDIDATE_INBOX:
+            errors.append(
+                f"control-center.json: knowledge.candidateInbox must equal '{EXPECTED_CANDIDATE_INBOX}'"
+            )
+        if knowledge.get("daydreaming") not in DAYDREAMING_MODES:
+            errors.append("control-center.json: knowledge.daydreaming has unsupported mode")
     for field in placeholder_paths(manifest):
         errors.append(f"control-center.json: unresolved placeholder at {field}")
 

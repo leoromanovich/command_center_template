@@ -4,7 +4,8 @@
     "skill": {
       "*": "ask",
       "grill-cc-bootstrap": "allow",
-      "grill-task-planning": "allow"
+      "grill-task-planning": "allow",
+      "consolidate-task-knowledge": "allow"
     },
     "external_directory": "ask"
   }

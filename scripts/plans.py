@@ -45,6 +45,45 @@ def single_line(value: str, label: str) -> str:
     return value.strip()
 
 
+def require_accepted(content: str) -> None:
+    if not re.search(r"^Planning status:\s+accepted$", content, re.MULTILINE):
+        raise ValueError("plan must be accepted before reflection or completion; run './cc plan accept'")
+
+
+def knowledge_path(root: Path, value: str) -> str:
+    relative = Path(single_line(value, "knowledge path"))
+    if relative.is_absolute() or ".." in relative.parts:
+        raise ValueError("knowledge path must stay inside the Control Center")
+    target = (root / relative).resolve()
+    if root not in target.parents or not target.is_file():
+        raise ValueError(f"knowledge path does not exist inside the Control Center: {relative}")
+    return relative.as_posix()
+
+
+def render_reflection(content: str, summary: str, evidence: list[str], knowledge: list[str]) -> str:
+    evidence_lines = "\n".join(f"- {item}" for item in evidence)
+    knowledge_lines = "\n".join(f"- {item}" for item in knowledge)
+    replacement = (
+        "## Knowledge consolidation\n\n"
+        "Reflection status: reviewed\n"
+        f"Reflection summary: {summary}\n"
+        "Reflection evidence:\n"
+        f"{evidence_lines}\n"
+        "Knowledge delta:\n"
+        f"{knowledge_lines}\n"
+    )
+    updated, count = re.subn(
+        r"## Knowledge consolidation\n.*?(?=\n## Lifecycle closure)",
+        replacement.rstrip(),
+        content,
+        count=1,
+        flags=re.DOTALL,
+    )
+    if count != 1:
+        raise ValueError("plan has no unique Knowledge consolidation section")
+    return updated
+
+
 def command_create(root: Path, args: argparse.Namespace) -> None:
     check_id(args.id)
     if locate(root, args.id):
@@ -55,6 +94,29 @@ def command_create(root: Path, args: argparse.Namespace) -> None:
     destination = lifecycle_dirs(root)["active"] / f"{args.id}.md"
     destination.write_text(content, encoding="utf-8")
     print(f"created active plan: {destination.relative_to(root)}")
+
+
+def command_reflect(root: Path, args: argparse.Namespace) -> None:
+    found = locate(root, args.id)
+    if found is None:
+        raise ValueError(f"plan does not exist: {args.id}")
+    lifecycle, path = found
+    if lifecycle != "active":
+        raise ValueError(f"only active plans can be reflected; {args.id} is {lifecycle}")
+
+    content = path.read_text(encoding="utf-8")
+    require_accepted(content)
+    summary = single_line(args.summary, "summary")
+    evidence = [single_line(value, "evidence") for value in args.evidence]
+    knowledge = [knowledge_path(root, value) for value in (args.knowledge or [])]
+    if args.no_knowledge_delta:
+        knowledge = ["none"]
+
+    updated = render_reflection(content, summary, evidence, knowledge)
+    temporary = path.with_suffix(".md.tmp")
+    temporary.write_text(updated, encoding="utf-8")
+    temporary.replace(path)
+    print(f"reviewed knowledge consolidation: {path.relative_to(root)}")
 
 
 def closure(content: str, lifecycle: str, detail_label: str, detail: str) -> str:
@@ -89,7 +151,8 @@ def transition(
     lifecycle: str,
     label: str,
     detail: str,
-    require_accepted: bool = False,
+    require_plan_accepted: bool = False,
+    require_reflected: bool = False,
 ) -> None:
     found = locate(root, identifier)
     if found is None:
@@ -99,8 +162,12 @@ def transition(
         raise ValueError(f"only active plans can transition; {identifier} is {current}")
     detail = single_line(detail, label)
     source_content = source.read_text(encoding="utf-8")
-    if require_accepted and not re.search(r"^Planning status:\s+accepted$", source_content, re.MULTILINE):
-        raise ValueError("plan must be accepted before completion; run './cc plan accept'")
+    if require_plan_accepted:
+        require_accepted(source_content)
+    if require_reflected and not re.search(r"^Reflection status:\s+reviewed$", source_content, re.MULTILINE):
+        raise ValueError(
+            "plan knowledge must be reviewed before completion; run './cc plan reflect'"
+        )
     destination = lifecycle_dirs(root)[lifecycle] / source.name
     if destination.exists():
         raise ValueError(f"destination already exists: {destination}")
@@ -117,7 +184,15 @@ def command_archive(root: Path, args: argparse.Namespace) -> None:
 
 
 def command_complete(root: Path, args: argparse.Namespace) -> None:
-    transition(root, args.id, "completed", "evidence", args.evidence, require_accepted=True)
+    transition(
+        root,
+        args.id,
+        "completed",
+        "evidence",
+        args.evidence,
+        require_plan_accepted=True,
+        require_reflected=True,
+    )
 
 
 def command_accept(root: Path, args: argparse.Namespace) -> None:
@@ -187,6 +262,15 @@ def parser() -> argparse.ArgumentParser:
     accept = subparsers.add_parser("accept")
     accept.add_argument("id")
     accept.set_defaults(handler=command_accept)
+
+    reflect = subparsers.add_parser("reflect")
+    reflect.add_argument("id")
+    reflect.add_argument("--summary", required=True)
+    reflect.add_argument("--evidence", action="append", required=True)
+    delta = reflect.add_mutually_exclusive_group(required=True)
+    delta.add_argument("--knowledge", action="append")
+    delta.add_argument("--no-knowledge-delta", action="store_true")
+    reflect.set_defaults(handler=command_reflect)
 
     complete = subparsers.add_parser("complete")
     complete.add_argument("id")

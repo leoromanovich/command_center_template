@@ -10,6 +10,7 @@ evidence:
 relations:
   - docs/index.md
   - docs/decisions/0002-atomic-linked-notes.md
+  - docs/rules/knowledge-consolidation.md
 ---
 
 # Укладка Markdown-знаний
@@ -45,5 +46,7 @@ relations:
 - архив и superseded-заметки не читаются без причины.
 
 Большой первичный конспект можно сохранить с `kind: research-reference`. Он не считается каноническим знанием, не загружается автоматически и может превышать лимит; устойчивые выводы из него выносятся в обычные атомарные заметки.
+
+Reflection и daydreaming сначала создают кандидатов в ignored `.control-center-knowledge/candidates/`. Кандидат не является знанием: после critic-pass он либо выражается в существующем источнике истины, либо остаётся локальным.
 
 `./cc validate` проверяет frontmatter, уникальность ID, evidence, relations и Markdown-ссылки.

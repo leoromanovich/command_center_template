@@ -12,8 +12,10 @@ relations:
   - docs/index.md
   - docs/rules/bootstrap.md
   - docs/rules/executable-processes.md
+  - docs/rules/knowledge-consolidation.md
   - docs/rules/project-adapters.md
   - docs/rules/worktrees.md
+  - docs/decisions/0006-devenv-local-runtime.md
 ---
 
 # Границы Control Center
@@ -25,6 +27,7 @@ relations:
 - межпроектные derivation-графы и checks;
 - apps для внешних и привилегированных операций;
 - правила знаний и журнал межпроектных решений;
+- reviewed task reflections и ссылки на продвинутые knowledge deltas;
 - ссылки на runtime-источники истины.
 
 ## Снаружи
@@ -33,6 +36,7 @@ relations:
 - секреты;
 - фактическое состояние production;
 - полные копии проектной документации;
+- непроверенные reflection/daydreaming-кандидаты;
 - универсальный UI.
 
 Base clones и feature worktrees также находятся снаружи: `../repos/` и `../worktrees/<feature>/`.
@@ -48,3 +52,5 @@ sibling sources → project adapters → packages/checks
 ```
 
 Markdown объясняет границы и причины. Nix-граф доказывает, что процесс всё ещё выполняется.
+
+[Devenv обслуживает локальный runtime](../decisions/0006-devenv-local-runtime.md) через CC apps. Версии и source overrides задаются flake-контрактом.

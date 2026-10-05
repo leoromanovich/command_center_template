@@ -8,6 +8,7 @@ import json
 import re
 import subprocess
 import sys
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -41,6 +42,24 @@ def write_json(path: Path, data: dict[str, Any]) -> None:
     temporary = path.with_suffix(".json.tmp")
     temporary.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     temporary.replace(path)
+
+
+def create_knowledge_index(root: Path, identifier: str, role: str, remote: str) -> Path:
+    path = root / "docs" / "projects" / identifier / "index.md"
+    if path.exists():
+        return path
+    template = (root / "templates" / "project-knowledge-index.md").read_text(encoding="utf-8")
+    content = (
+        template.replace("<repo-id>", identifier)
+        .replace("<role>", role)
+        .replace("<remote>", remote)
+        .replace("<verified-at>", date.today().isoformat())
+    )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(".md.tmp")
+    temporary.write_text(content, encoding="utf-8")
+    temporary.replace(path)
+    return path
 
 
 def is_git_checkout(path: Path) -> bool:
@@ -99,6 +118,8 @@ def command_add(root: Path, args: argparse.Namespace) -> None:
             raise ValueError(f"checkout exists but is not a Git worktree: {checkout}")
         require_remote(checkout, args.remote, root)
 
+    knowledge = f"docs/projects/{args.id}/index.md"
+    create_knowledge_index(root, args.id, args.role, args.remote)
     write_json(
         path,
         {
@@ -110,11 +131,12 @@ def command_add(root: Path, args: argparse.Namespace) -> None:
             "role": args.role,
             "sourceInput": args.source_input or args.id,
             "adapter": args.adapter or f"nix/projects/{args.id}.nix",
+            "knowledge": knowledge,
             "status": "discovered",
         },
     )
     state = "present" if is_git_checkout(checkout) else "absent"
-    print(f"added {args.id}: base checkout {state} at {checkout}")
+    print(f"added {args.id}: base checkout {state} at {checkout}; knowledge {knowledge}")
 
 
 def command_list(root: Path, _: argparse.Namespace) -> None:

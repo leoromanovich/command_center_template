@@ -11,6 +11,7 @@ evidence:
   - plans/completed/.gitkeep
 relations:
   - docs/index.md
+  - docs/decisions/0005-evidence-gated-consolidation.md
   - docs/rules/task-planning.md
 ---
 
@@ -26,7 +27,7 @@ relations:
 - `plans/archived/` хранит планы, которые решили не выполнять, с причиной.
 - `plans/completed/` хранит выполненные планы с evidence приёмки.
 
-Переход перемещает, а не копирует файл. Повторный plan ID в другом state считается ошибкой. В `completed` попадает только явно accepted plan.
+Переход перемещает, а не копирует файл. Повторный plan ID в другом state считается ошибкой. В `completed` попадает только явно accepted plan с reviewed reflection и evidence приёмки.
 
 ## Последствия
 

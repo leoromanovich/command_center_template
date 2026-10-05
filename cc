@@ -18,7 +18,7 @@ usage() {
     '  bootstrap validate          Validate the configured CC contract' \
     '  repo <add|list|show|set-status> ...' \
     '  worktree <create|add|status|remove> ...' \
-    '  plan <create|list|show|accept|archive|complete> ...' \
+    '  plan <create|list|show|accept|reflect|archive|complete> ...' \
     '  feature <name> <show|check|build|run> ...  Use feature input overrides'
 }
 
@@ -62,26 +62,27 @@ case "$command_name" in
   show)
     require_nix
     load_feature_overrides
-    exec nix flake show "${nix_override_args[@]}" "$cc_root" "$@"
+    exec nix --extra-experimental-features 'nix-command flakes' flake show ${nix_override_args[@]+"${nix_override_args[@]}"} "$cc_root" "$@"
     ;;
   check)
     require_nix
     load_feature_overrides
-    exec nix flake check "${nix_override_args[@]}" "$cc_root" --keep-going "$@"
+    exec nix --extra-experimental-features 'nix-command flakes' flake check ${nix_override_args[@]+"${nix_override_args[@]}"} "$cc_root" --keep-going "$@"
     ;;
   build)
     require_nix
     target="${1:?usage: ./cc build <name>}"
     shift
     load_feature_overrides
-    exec nix build "${nix_override_args[@]}" "${cc_root}#$target" "$@"
+    exec nix --extra-experimental-features 'nix-command flakes' build ${nix_override_args[@]+"${nix_override_args[@]}"} "${cc_root}#$target" "$@"
     ;;
   run)
     require_nix
     target="${1:?usage: ./cc run <name>}"
     shift
     load_feature_overrides
-    exec nix run "${nix_override_args[@]}" "${cc_root}#$target" -- "$@"
+    export CC_ROOT="$cc_root"
+    exec nix --extra-experimental-features 'nix-command flakes' run ${nix_override_args[@]+"${nix_override_args[@]}"} "${cc_root}#$target" -- "$@"
     ;;
   validate)
     exec python3 "$cc_root/scripts/validate-knowledge.py" "$cc_root"

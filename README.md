@@ -69,14 +69,16 @@ OpenCode не обнаруживает project skills внутри дочерн�
 
 - `grill-cc-bootstrap` — создание/миграция CC.
 - `grill-task-planning` — подготовка agent-ready плана.
+- `consolidate-task-knowledge` — проверяемая консолидация опыта перед completion.
 - Общие grilling-инварианты живут в невызываемом shared core.
 
 ```bash
 ./cc plan create feature1 --title "Изменить наблюдаемое поведение"
 ./cc plan accept feature1
+./cc plan reflect feature1 --summary "..." --evidence "nix check ..." --knowledge docs/projects/repo1/example.md
 ./cc plan complete feature1 --evidence "Acceptance checks passed"
 ```
 
-Plan существует ровно в одном state: `plans/active/`, `plans/archived/` или `plans/completed/`. Альтернативный переход для отменённой работы: `./cc plan archive feature1 --reason "..."`.
+Plan существует ровно в одном state: `plans/active/`, `plans/archived/` или `plans/completed/`. Перед completion skill `consolidate-task-knowledge` извлекает проверяемые уроки; если устойчивых знаний нет, используется `--no-knowledge-delta`. Альтернативный переход для отменённой работы: `./cc plan archive feature1 --reason "..."`.
 
 Шаблон намеренно не содержит UI, секретов и прав на production.

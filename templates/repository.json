@@ -7,5 +7,6 @@
   "role": "replace-me",
   "sourceInput": "repo-id",
   "adapter": "nix/projects/repo-id.nix",
+  "knowledge": "docs/projects/repo-id/index.md",
   "status": "discovered"
 }

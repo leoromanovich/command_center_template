@@ -25,6 +25,8 @@ description: Conduct an evidence-first grilling session that turns an ambiguous 
 
 После явного согласования плана выполни `./cc plan accept <task-id>`. Несогласованный plan нельзя перевести в `completed`.
 
+После implementation этот skill не проводит retrospective: загрузи `consolidate-task-knowledge`, зафиксируй reviewed reflection и только затем завершай plan.
+
 ## Worktree scope
 
 Выбери стабильный `task-id`; ему соответствует `../worktrees/<task-id>/<repo>_wt`. Включай только изменяемые repos; read-only dependency не требует worktree.

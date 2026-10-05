@@ -15,12 +15,15 @@
 
 Если пользователь просит спланировать сложную или агентную задачу, загрузи `grill-task-planning`. Храни текущие планы в `plans/active/`, отменённые — в `plans/archived/`, выполненные — в `plans/completed/`; переходы делай через `./cc plan`.
 
+После реализации принятого плана и прохождения acceptance checks загрузи `consolidate-task-knowledge`. Проведи evidence-backed reflection до `./cc plan complete`; не продвигай гипотезы модели в канонические знания. Тот же skill по явному запросу проводит environment retro тяжёлой сессии — propose-only кандидаты улучшения среды агента, без привязки к плану.
+
 ## Начало работы
 
 1. Прочитай `docs/index.md`.
 2. Открой только относящиеся к задаче заметки и их прямые связи.
 3. Выполни `./cc show`, чтобы увидеть реальный исполняемый интерфейс.
 4. Перед изменениями определи затронутые projects, workflows и checks.
+5. Для каждого затронутого проекта прочитай его `docs/projects/<repo>/index.md` и прямые связи, если index существует.
 
 Не сканируй всю `docs/` и архивы без необходимости.
 
@@ -51,8 +54,10 @@
 - Объясняй «почему» и границы применимости; не дублируй код.
 - Заменённое знание помечай `superseded` и связывай с преемником.
 - Хак связывай с решением или техдолгом и условием удаления.
+- Завершённая задача имеет reviewed reflection и явный knowledge delta; `none` допустим.
+- Daydreaming-кандидаты храни только в ignored `.control-center-knowledge/candidates/` до независимой проверки.
 
-Подробности: `docs/rules/knowledge-layout.md`.
+Подробности: `docs/rules/knowledge-layout.md` и `docs/rules/knowledge-consolidation.md`.
 
 ## Проверка
 

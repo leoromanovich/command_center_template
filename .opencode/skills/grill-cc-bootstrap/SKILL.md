@@ -12,11 +12,12 @@ description: Conduct an evidence-first grilling session that creates a new Contr
 1. Определи `template_root` и `target_root` по `BOOTSTRAP.md`.
 2. Выполни materialization; продолжай из `target_root`.
 3. Зафиксируй имя, status и topology в `control-center.json`.
-4. Собери use cases, границы и полномочия.
-5. Составь repository inventory. Не пиши adapters до согласования имён, ролей и связей.
-6. Онборди по одному repo: `./cc repo add` → inspect → flake input/adapter → package/check → `./cc repo set-status <id> verified`.
-7. Только затем собери workflows и benchmarks.
-8. Замени template README и project map реальными данными; удали examples и placeholders.
+4. Подтверди policy обязательной task consolidation и режим daydreaming в `control-center.json`.
+5. Собери use cases, границы и полномочия.
+6. Составь repository inventory. Не пиши adapters до согласования имён, ролей и связей.
+7. Онборди по одному repo: `./cc repo add` → inspect → flake input/adapter → package/check → `./cc repo set-status <id> verified`.
+8. Только затем собери workflows и benchmarks.
+9. Замени template README и project map реальными данными; удали examples и placeholders.
 
 ## Migration
 
@@ -40,4 +41,5 @@ Build-команды вводи здесь в Nix-adapter, а не в grilling-�
 - Все repos проверены или имеют явный blocker.
 - Cross-repo связи представлены workflow/check.
 - Критический path пройден end-to-end.
+- Completion-gate требует reviewed task reflection.
 - Целевой CC не зависит от `cc_template`.
