@@ -17,7 +17,7 @@ for (const [id, repo] of Object.entries(p.repositories)) {
   repo.baseRef = 'main';
 }
 await git(f.commandCenter, 'init', '-b', 'main');
-Object.assign(p, { workspace: { autoCreate: true }, worktreeParent: 'WorkTree', git: { allowCommit: true, allowPush: false },
+Object.assign(p, { workspace: { autoCreate: true }, worktreeParent: 'wt', git: { allowCommit: true, allowPush: false },
   opencode: configured.opencode, models: configured.models, disabledMcp: configured.disabledMcp });
 writeJSON(f.profile, p);
 const task = JSON.parse(fs.readFileSync(f.task));

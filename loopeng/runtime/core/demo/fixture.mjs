@@ -16,7 +16,7 @@ export async function fixture({ destination, scenario = 'loop', publication = fa
   const base = fs.realpathSync(root);
   const commandCenter = path.join(base, 'CommandCenter');
   const drafts = path.join(commandCenter, '.opencode-plans');
-  const feature = path.join(base, 'WorkTree', 'demo-feature');
+  const feature = path.join(base, 'wt', 'demo-feature');
   fs.mkdirSync(drafts, { recursive: true });
   fs.mkdirSync(feature, { recursive: true });
   fs.writeFileSync(path.join(commandCenter, 'AGENTS.md'), 'Demo: app consumes the library. Change both in the existing feature worktrees.\n');
@@ -38,7 +38,7 @@ export async function fixture({ destination, scenario = 'loop', publication = fa
     } };
   }
   const profile = path.join(base, 'profile.json');
-  writeJSON(profile, { version: 1, enabled: true, commandCenter, worktreeParent: '../WorkTree',
+  writeJSON(profile, { version: 1, enabled: true, commandCenter, worktreeParent: '../wt',
     repositories, maxRounds, timeoutSeconds: 30, knowledge: ['AGENTS.md'],
     opencode: [process.execPath, path.join(CONFIG_DIR, 'demo/mock-opencode.mjs'), scenario],
     hooks: publication ? {

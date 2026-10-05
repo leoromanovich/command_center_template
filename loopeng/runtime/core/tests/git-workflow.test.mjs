@@ -35,8 +35,8 @@ async function setup(t, { push = false, clone = false, scenario = 'pass' } = {})
   }
   profile.workspace = { autoCreate: true, cloneMissing: clone };
   profile.git = { allowCommit: true, allowPush: push };
-  profile.worktreeParent = 'WorkTree';
-  f.feature = path.join(f.commandCenter, 'WorkTree', f.id);
+  profile.worktreeParent = 'wt';
+  f.feature = path.join(f.commandCenter, 'wt', f.id);
   await git(f.commandCenter, 'init', '-b', 'main');
   task.worktrees = Object.fromEntries(task.repositories.map(id => [id, { base: 'main', branch: `feature/${f.id}` }]));
   task.publication = { commit: true, push };
@@ -54,9 +54,9 @@ test('prepare provisions multiple nested ignored worktrees and never changes sou
     assert.equal((await git(repo.source, 'branch', '--show-current')).trim(), 'main');
     assert.equal((await git(repo.root, 'show', 'HEAD:value.txt')).trim(), 'original');
   }
-  await git(f.commandCenter, 'check-ignore', '--', `WorkTree/${f.id}/app/value.txt`);
+  await git(f.commandCenter, 'check-ignore', '--', `wt/${f.id}/app/value.txt`);
   await git(f.commandCenter, 'add', '--all');
-  assert.doesNotMatch(await git(f.commandCenter, 'ls-files'), /WorkTree|opencode-loop-state/);
+  assert.doesNotMatch(await git(f.commandCenter, 'ls-files'), /wt\/|opencode-loop-state/);
   assert.equal((await prepare(f.profile, f.task)).digest, s.digest);
   assert.match(fs.readFileSync(path.join(f.profileData.stateRoot ?? path.join(f.commandCenter, '.opencode-loop-state'), 'commands.log'), 'utf8'), /worktree/);
 });
@@ -77,11 +77,11 @@ test('provisioning rejects protected branches, symlinks, tracked workspaces and 
   f.taskData.worktrees.app.branch = 'main'; writeJSON(f.task, f.taskData);
   await assert.rejects(prepare(f.profile, f.task), /feature branch/);
   f.taskData.worktrees.app.branch = `feature/${f.id}`; writeJSON(f.task, f.taskData);
-  fs.mkdirSync(path.join(f.commandCenter, 'WorkTree'), { recursive: true });
-  fs.writeFileSync(path.join(f.commandCenter, 'WorkTree/tracked.txt'), 'user data');
-  await git(f.commandCenter, 'add', '--', 'WorkTree/tracked.txt');
+  fs.mkdirSync(path.join(f.commandCenter, 'wt'), { recursive: true });
+  fs.writeFileSync(path.join(f.commandCenter, 'wt/tracked.txt'), 'user data');
+  await git(f.commandCenter, 'add', '--', 'wt/tracked.txt');
   await assert.rejects(prepare(f.profile, f.task), /already tracked/);
-  await git(f.commandCenter, 'rm', '--cached', '--', 'WorkTree/tracked.txt');
+  await git(f.commandCenter, 'rm', '--cached', '--', 'wt/tracked.txt');
   fs.symlinkSync(f.base, f.feature);
   await assert.rejects(prepare(f.profile, f.task), /symlink/);
   fs.unlinkSync(f.feature);

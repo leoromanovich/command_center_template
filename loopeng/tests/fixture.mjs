@@ -7,7 +7,7 @@ import { ROOT, materializeProfile } from '../scripts/cc.mjs';
 export function templateFixture(t, { configured = false } = {}) {
   const parent = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), 'cc-template-')));
   const root = path.join(parent, "CC moved ' with spaces");
-  const excluded = new Set(['.git', '.local', '.pi', 'WorkTree', 'node_modules', 'graphify-out', '.demo', '.docker-demo', '.docker-project', '.knowledge-project', 'cc.local.json']);
+  const excluded = new Set(['.git', '.local', '.pi', 'wt', 'node_modules', 'graphify-out', '.demo', '.docker-demo', '.docker-project', '.knowledge-project', 'cc.local.json']);
   fs.cpSync(ROOT, root, { recursive: true, filter: file => !path.relative(ROOT, file).split(path.sep).some(part => excluded.has(part)) });
   t.after(() => fs.rmSync(parent, { recursive: true, force: true }));
   let source;

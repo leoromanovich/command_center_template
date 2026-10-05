@@ -73,7 +73,7 @@ test('runtime artifacts stay outside Git while independent example sources remai
     assert.equal(r.status, 0, r.stderr); return r.stdout;
   };
   git(['init', '-b', 'main']);
-  const ignored = ['.pi/cc-profile.json', '.pi/sessions/private.jsonl', '.local/examples/python-catalog/CommandCenter/.pi/sessions/private.jsonl', 'WorkTree/task/repo/file.py', 'cc.local.json', 'model-prices.local.json', '.env', 'runtime/pi/.docker-demo/profile.json'];
+  const ignored = ['.pi/cc-profile.json', '.pi/sessions/private.jsonl', '.local/examples/python-catalog/CommandCenter/.pi/sessions/private.jsonl', 'wt/task/repo/file.py', 'cc.local.json', 'model-prices.local.json', '.env', 'runtime/pi/.docker-demo/profile.json'];
   assert.deepEqual(git(['check-ignore', '--', ...ignored]).trim().split('\n'), ignored);
   const visible = git(['ls-files', '--others', '--exclude-standard']).trim().split('\n');
   for (const file of ['start', 'cc.config.json', 'docker/Dockerfile', 'runtime/pi/worker.mjs', 'runtime/core/lib/controller.mjs', 'examples/python-catalog/profile.json', 'examples/python-catalog/repository/catalog.py']) assert(visible.includes(file), file);

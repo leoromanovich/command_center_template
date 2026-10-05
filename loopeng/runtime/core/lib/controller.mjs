@@ -33,11 +33,11 @@ export function loadProfile(profilePath) {
   required(data.version === 1 && data.enabled === true, 'Edit the profile and set version: 1, enabled: true.');
   required(typeof data.commandCenter === 'string', 'commandCenter is required');
   const commandCenter = canonical(path.resolve(path.dirname(filename), data.commandCenter));
-  const worktreeParent = canonical(path.resolve(commandCenter, data.worktreeParent ?? '../WorkTree'));
+  const worktreeParent = canonical(path.resolve(commandCenter, data.worktreeParent ?? '../wt'));
   const stateRoot = canonical(path.resolve(commandCenter, data.stateRoot ?? '.opencode-loop-state'));
   const draftsRoot = canonical(path.resolve(commandCenter, data.draftsRoot ?? '.opencode-plans'));
-  required(worktreeParent !== commandCenter && !inside(worktreeParent, commandCenter), 'WorkTree must not contain Command Center');
-  required(!inside(worktreeParent, stateRoot) && !inside(worktreeParent, draftsRoot), 'State and plan directories must be outside WorkTree.');
+  required(worktreeParent !== commandCenter && !inside(worktreeParent, commandCenter), 'Worktree parent must not contain Command Center');
+  required(!inside(worktreeParent, stateRoot) && !inside(worktreeParent, draftsRoot), 'State and plan directories must be outside the worktree parent.');
   required(data.repositories && typeof data.repositories === 'object' && !Array.isArray(data.repositories), 'repositories must be an object');
   const maxRounds = data.maxRounds ?? 5;
   required(Number.isInteger(maxRounds) && maxRounds >= 1 && maxRounds <= 30, 'maxRounds must be 1..30');

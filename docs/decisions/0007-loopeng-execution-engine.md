@@ -21,7 +21,7 @@ relations:
 
 ## Решение
 
-Код пайплайна loopeng («Command Center · Pi + Docker»: Planner → Builder в Docker-песочнице → checks → Reviewer) вендорен в каталог `loopeng/` этого репозитория и поглощён CC: правки пайплайна делаются здесь, upstream `leoromanovich/loopeng_pi` — read-only архив до удаления. Каталог `loopeng/` одновременно код и рабочий инстанс: машинное состояние (`.pi/`, `WorkTree/`, `cc.local.json`) изолирует собственный nested `.gitignore` loopeng. Роль: CC остаётся картой, знаниями и Nix-контрольной плоскостью для opencode; loopeng исполняет агентные циклы через Pi SDK.
+Код пайплайна loopeng («Command Center · Pi + Docker»: Planner → Builder в Docker-песочнице → checks → Reviewer) вендорен в каталог `loopeng/` этого репозитория и поглощён CC: правки пайплайна делаются здесь, upstream `leoromanovich/loopeng_pi` — read-only архив до удаления. Каталог `loopeng/` одновременно код и рабочий инстанс: машинное состояние (`.pi/`, `wt/`, `cc.local.json`) изолирует собственный nested `.gitignore` loopeng. Роль: CC остаётся картой, знаниями и Nix-контрольной плоскостью для opencode; loopeng исполняет агентные циклы через Pi SDK.
 
 Исполняемый контракт: hermetic check `loopeng-unit` (обе сюиты `node --test` в sandbox; Pi SDK и зависимости пинятся через закоммиченный `nix/loopeng/package-lock.json` и fixed-output derivation; docker-тесты без `CC_DOCKER_TEST` скипаются) и app `loopeng-build-image` (сборка `local/cc-builder` — сеть, явный запуск).
 
@@ -33,8 +33,8 @@ Lockfile-манифест `nix/loopeng/package.json` пинит `@earendil-works
 
 ## Границы
 
-- Инстанс машинно-локален по состоянию, но глобален по коду: `loopeng/.pi/`, `WorkTree/`, `cc.local.json` не коммитятся; код и конфиг профиля — коммитятся.
-- Coexistence worktrees: loopeng создаёт свои `WorkTree/<task>/<repo>` от base checkout; opencode-фичи CC используют контракт `../worktrees/<feature>/<repo>_wt`. Base checkouts общие; source-пути в `repositories` указывают на существующие checkout без re-clone.
+- Инстанс машинно-локален по состоянию, но глобален по коду: `loopeng/.pi/`, `wt/`, `cc.local.json` не коммитятся; код и конфиг профиля — коммитятся.
+- Coexistence worktrees: loopeng создаёт свои `wt/<task>/<repo>` от base checkout; opencode-фичи CC используют контракт `../worktrees/<feature>/<repo>_wt`. Base checkouts общие; source-пути в `repositories` указывают на существующие checkout без re-clone. Аббревиатура `wt` = worktree — см. глоссарий.
 - `repositories` пока пусты: движок валидируется встроенным `./cc demo`; реальные репозитории подключаются через `cc.local.json` (машинные пути) + toolchain в `loopeng/docker/Dockerfile`.
 - Неубираемый машинный остаток: Docker-daemon, Node ≥22.19 (или глобальный Pi), ключи моделей в Pi. Секреты и `.env` — вне смонтированных worktree (enforced песочницей).
 - Правки пайплайна loopeng — по его собственному AGENTS («Разработка самого пайплайна»), отдельным запросом; его тесты включены в `./cc check`.

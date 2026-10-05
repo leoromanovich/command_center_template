@@ -18,7 +18,7 @@ export async function setupDemo(destination = path.join(ROOT, '.demo'), scenario
     repo.baseRef = 'main';
   }
   writeJSON(f.profile, profile);
-  fs.writeFileSync(path.join(f.commandCenter, '.gitignore'), '.opencode-loop-state/\n.opencode-plans/\n.pi/sessions/\nWorkTree/\n');
+  fs.writeFileSync(path.join(f.commandCenter, '.gitignore'), '.opencode-loop-state/\n.opencode-plans/\n.pi/sessions/\nwt/\n');
   return f;
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

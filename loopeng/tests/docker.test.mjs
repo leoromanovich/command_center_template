@@ -16,7 +16,7 @@ dockerTest('separate CSV CC prepares worktree and passes Ruff/unittest without c
   fs.writeFileSync(task, JSON.stringify({ id: 'portable-baseline', source: { kind: 'local' }, plan: 'plan.md', repositories: ['catalog'], acceptance: ['All baseline checks pass'] }));
   const state = await prepare(profile.filename, task), dir = path.join(profile.stateRoot, state.id);
   try {
-    assert.equal(state.snapshot.featureRoot, path.join(profile.commandCenter, 'WorkTree/portable-baseline'));
+    assert.equal(state.snapshot.featureRoot, path.join(profile.commandCenter, 'wt/portable-baseline'));
     assert.equal(state.snapshot.profile.agentRuntime.command[1], path.join(f.root, 'runtime/pi/worker.mjs'));
     assert(!fs.existsSync(f.profile.worktreeParent));
     assert.deepEqual(f.profile.repositories, {});

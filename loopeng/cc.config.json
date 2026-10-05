@@ -2,7 +2,7 @@
   "version": 1,
   "enabled": true,
   "commandCenter": ".",
-  "worktreeParent": "WorkTree",
+  "worktreeParent": "wt",
   "stateRoot": ".pi/cc-state",
   "draftsRoot": ".pi/cc-plans",
   "workspace": {

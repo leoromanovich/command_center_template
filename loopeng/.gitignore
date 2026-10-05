@@ -1,6 +1,6 @@
 /.local/
 /.pi/
-/WorkTree/
+/wt/
 /cc.local.json
 /model-prices.local.json
 **/.demo/

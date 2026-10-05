@@ -2,7 +2,7 @@
 
 Учебный репозиторий: `catalog` → `../repositories/catalog` относительно этого Command Center, ветка `main`, Python 3.12. `catalog.py` читает шесть синтетических записей из `data/items.csv`; тесты — `unittest`. Зависимости среды: Ruff. Сервис HTTP в этот компактный seed не включён.
 
-Рабочие ветки: `feature/<task>`. Worktree: `WorkTree/<task>/catalog`. Форматирование, lint и обе группы тестов выполняются в контейнере. Приёмочные тесты CC находятся в `/context/checks/acceptance`; тесты реализации — в `tests/` worktree.
+Рабочие ветки: `feature/<task>`. Worktree: `wt/<task>/catalog`. Форматирование, lint и обе группы тестов выполняются в контейнере. Приёмочные тесты CC находятся в `/context/checks/acceptance`; тесты реализации — в `tests/` worktree.
 
 При адаптации замените этот файл картой ваших репозиториев:
 

@@ -24,7 +24,7 @@ export async function setupDockerProject(destination = path.join(ROOT, '.docker-
   fs.mkdirSync(path.join(cc, 'rules'));
   fs.copyFileSync(path.resolve(ROOT, '../../rules/review.md'), path.join(cc, 'rules/review.md'));
   fs.copyFileSync(path.resolve(ROOT, '../../model-prices.json'), path.join(cc, 'model-prices.json'));
-  fs.writeFileSync(path.join(cc, '.gitignore'), '/WorkTree/\n/.pi/\n');
+  fs.writeFileSync(path.join(cc, '.gitignore'), '/wt/\n/.pi/\n');
   const profile = path.join(cc, '.pi/cc-profile.json');
   const config = JSON.parse(fs.readFileSync(path.join(template, 'profile.json'), 'utf8'));
   config.agentRuntime = { kind: 'pi', command: [process.execPath, path.join(ROOT, 'worker.mjs')] };
