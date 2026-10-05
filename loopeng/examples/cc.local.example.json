@@ -1,0 +1,17 @@
+{
+  "sandbox": { "image": "local/my-project-builder:0.1" },
+  "repositories": {
+    "service": {
+      "source": "../repositories/service",
+      "worktree": "service",
+      "baseRef": "main",
+      "git": { "branchPrefix": "feature/" },
+      "checks": {
+        "format": [["your-formatter", "."]],
+        "formatCheck": [["your-formatter", "--check", "."]],
+        "lint": [["your-linter", "."]],
+        "test": [["your-test-runner"]]
+      }
+    }
+  }
+}

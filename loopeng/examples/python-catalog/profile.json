@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "enabled": true,
+  "commandCenter": "..",
+  "worktreeParent": "WorkTree",
+  "stateRoot": ".pi/cc-state",
+  "draftsRoot": ".pi/cc-plans",
+  "workspace": {
+    "autoCreate": true,
+    "cloneMissing": false
+  },
+  "maxRounds": 6,
+  "timeoutSeconds": 600,
+  "recovery": {
+    "maxAttempts": 3,
+    "initialDelayMs": 2000,
+    "maxDelayMs": 30000
+  },
+  "pi": {
+    "pricingFile": "model-prices.json",
+    "model": "zai/glm-5.3-flash",
+    "models": {
+      "builder": "zai/glm-5.3-flash",
+      "reviewer": "zai/glm-5.3-flash",
+      "explorer": "zai/glm-5.3-flash",
+      "execution-reviewer": "zai/glm-5.3-flash"
+    },
+    "thinkingLevel": "low",
+    "explorerLimit": 3
+  },
+  "sandbox": {
+    "kind": "docker",
+    "image": "local/cc-sandbox-python:0.1",
+    "contextFiles": [
+      "AGENTS.md",
+      "docs/repositories.md",
+      "rules/review.md",
+      "checks/pyproject.toml",
+      "checks/acceptance/test_catalog.py"
+    ]
+  },
+  "devRun": {
+    "enabled": false
+  },
+  "knowledge": [
+    "AGENTS.md",
+    "docs/repositories.md"
+  ],
+  "reviewRules": [
+    "rules/review.md"
+  ],
+  "git": {
+    "allowCommit": true,
+    "allowPush": false
+  },
+  "repositories": {
+    "catalog": {
+      "source": "../repositories/catalog",
+      "worktree": "catalog",
+      "baseRef": "main",
+      "git": {
+        "branchPrefix": "feature/"
+      },
+      "checks": {
+        "format": [
+          [
+            "ruff",
+            "format",
+            "--config",
+            "/context/checks/pyproject.toml",
+            "."
+          ]
+        ],
+        "formatCheck": [
+          [
+            "ruff",
+            "format",
+            "--check",
+            "--config",
+            "/context/checks/pyproject.toml",
+            "."
+          ]
+        ],
+        "lint": [
+          [
+            "ruff",
+            "check",
+            "--config",
+            "/context/checks/pyproject.toml",
+            "."
+          ]
+        ],
+        "test": [
+          [
+            "python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "/context/checks/acceptance",
+            "-v"
+          ],
+          [
+            "python",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-v"
+          ]
+        ]
+      }
+    }
+  }
+}

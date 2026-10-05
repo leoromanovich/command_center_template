@@ -1,0 +1,13 @@
+{
+  "name": "cc-loop-template",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22.19.0" },
+  "scripts": {
+    "test": "node --test --test-concurrency=1 tests/*.test.mjs runtime/pi/tests/*.test.mjs",
+    "test:core": "cd runtime/core && node --test --test-concurrency=1 tests/*.test.mjs",
+    "test:docker": "CC_DOCKER_TEST=1 node --test --test-concurrency=1 tests/docker.test.mjs runtime/pi/tests/docker.test.mjs runtime/pi/tests/knowledge.test.mjs",
+    "doctor": "node scripts/cc.mjs doctor"
+  }
+}

@@ -54,3 +54,5 @@ sibling sources → project adapters → packages/checks
 Markdown объясняет границы и причины. Nix-граф доказывает, что процесс всё ещё выполняется.
 
 [Devenv обслуживает локальный runtime](../decisions/0006-devenv-local-runtime.md) через CC apps. Версии и source overrides задаются flake-контрактом.
+
+[Вендоренный loopeng в `loopeng/`](../decisions/0007-loopeng-execution-engine.md) исполняет агентные циклы Pi+Docker; его тесты включены в checks CC.

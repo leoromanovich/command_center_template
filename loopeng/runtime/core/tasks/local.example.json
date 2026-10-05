@@ -1,0 +1,31 @@
+{
+  "id": "feature-name",
+  "source": {
+    "kind": "local"
+  },
+  "plan": "plan.md",
+  "repositories": [
+    "core",
+    "app"
+  ],
+  "acceptance": [
+    "Публичный контракт core согласован с использованием в app.",
+    "Обработка ошибки покрыта регрессионным тестом."
+  ],
+  "publication": {
+    "mergeRequest": false,
+    "jiraUpdate": false,
+    "commit": true,
+    "push": false
+  },
+  "worktrees": {
+    "core": {
+      "base": "main",
+      "branch": "feature/feature-name"
+    },
+    "app": {
+      "base": "main",
+      "branch": "feature/feature-name"
+    }
+  }
+}

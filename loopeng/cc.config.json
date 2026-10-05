@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "enabled": true,
+  "commandCenter": ".",
+  "worktreeParent": "WorkTree",
+  "stateRoot": ".pi/cc-state",
+  "draftsRoot": ".pi/cc-plans",
+  "workspace": {
+    "autoCreate": true,
+    "cloneMissing": false
+  },
+  "maxRounds": 6,
+  "timeoutSeconds": 600,
+  "recovery": {
+    "maxAttempts": 3,
+    "initialDelayMs": 2000,
+    "maxDelayMs": 30000
+  },
+  "pi": {
+    "pricingFile": "model-prices.json",
+    "model": "zai/glm-5.3-flash",
+    "models": {
+      "builder": "zai/glm-5.3-flash",
+      "reviewer": "zai/glm-5.3-flash",
+      "explorer": "zai/glm-5.3-flash",
+      "execution-reviewer": "zai/glm-5.3-flash"
+    },
+    "thinkingLevel": "low",
+    "explorerLimit": 3,
+    "plannerSearchExclude": [
+      "runtime",
+      "examples",
+      "tests",
+      "scripts",
+      "graphify-out"
+    ]
+  },
+  "sandbox": {
+    "kind": "docker",
+    "image": "local/cc-builder:0.1",
+    "contextFiles": [
+      "AGENTS.md",
+      "docs/repositories.md",
+      "rules/review.md"
+    ]
+  },
+  "devRun": {
+    "enabled": false
+  },
+  "knowledge": [
+    "AGENTS.md",
+    "docs/repositories.md"
+  ],
+  "reviewRules": [
+    "rules/review.md"
+  ],
+  "git": {
+    "allowCommit": true,
+    "allowPush": false
+  },
+  "repositories": {}
+}

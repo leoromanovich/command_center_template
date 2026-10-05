@@ -1,0 +1,11 @@
+{
+  "currency": "USD",
+  "models": {
+    "zai/glm-5.3-flash": {
+      "input": 0.15,
+      "output": 0.50,
+      "cacheRead": 0.03,
+      "cacheWrite": null
+    }
+  }
+}

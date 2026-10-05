@@ -40,6 +40,7 @@ relations:
 - [Template как временный seed](decisions/0003-template-as-seed.md)
 - [Lifecycle планов](decisions/0004-plan-lifecycle.md)
 - [Evidence-gated консолидация](decisions/0005-evidence-gated-consolidation.md)
+- [Вендоренный loopeng как execution engine](decisions/0007-loopeng-execution-engine.md)
 
 ## Текущий контекст
 

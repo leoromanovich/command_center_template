@@ -1,0 +1,31 @@
+{
+  "id": "PROJ-123",
+  "source": {
+    "kind": "jira",
+    "key": "PROJ-123"
+  },
+  "plan": "plan.md",
+  "repositories": [
+    "core",
+    "app"
+  ],
+  "acceptance": [
+    "Замените на согласованные критерии из Jira и обсуждения."
+  ],
+  "publication": {
+    "mergeRequest": false,
+    "jiraUpdate": false,
+    "commit": true,
+    "push": false
+  },
+  "worktrees": {
+    "core": {
+      "base": "main",
+      "branch": "feature/PROJ-123"
+    },
+    "app": {
+      "base": "main",
+      "branch": "feature/PROJ-123"
+    }
+  }
+}

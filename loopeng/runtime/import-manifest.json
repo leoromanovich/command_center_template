@@ -1,0 +1,456 @@
+{
+  "importedOn": "2026-09-24",
+  "note": "Initial source snapshot; imports relocated from opencode-example/opencode to core; C++ image adds python executable. Further development is local to this repository.",
+  "files": [
+    {
+      "source": "pi-command-center/worker.mjs",
+      "target": "runtime/pi/worker.mjs",
+      "sha256": "70d69200eab13abf85062e287ef02aa111261d939c39a7a10e8c1fbde371c56b"
+    },
+    {
+      "source": "pi-command-center/setup-demo.mjs",
+      "target": "runtime/pi/setup-demo.mjs",
+      "sha256": "a91bb1af435b51b56bc24da8d95a5c53aff48adf6929fe74654f2c751e1e1441"
+    },
+    {
+      "source": "pi-command-center/extension.mjs",
+      "target": "runtime/pi/extension.mjs",
+      "sha256": "141e6c2b2721cf857ae706bb84853f4decf9c3e44bbb20adfa2e1571df3ac717"
+    },
+    {
+      "source": "pi-command-center/start.mjs",
+      "target": "runtime/pi/start.mjs",
+      "sha256": "27c531b422cd215c21adc31141ab8fbe65aa7b02c7b39e0311638af16ac640db"
+    },
+    {
+      "source": "pi-command-center/setup-docker-project.mjs",
+      "target": "runtime/pi/setup-docker-project.mjs",
+      "sha256": "aff780a493f839cb90187a82d4afb744eb27814d1f31c20f9f0db67b2096c7d4"
+    },
+    {
+      "source": "pi-command-center/setup-docker-demo.mjs",
+      "target": "runtime/pi/setup-docker-demo.mjs",
+      "sha256": "c6413b44d6231d0ccb733a3b808706c2e07bdf83219d88d4e0475857fcace47d"
+    },
+    {
+      "source": "pi-command-center/install.mjs",
+      "target": "runtime/pi/install.mjs",
+      "sha256": "7b62f8c1ee2383285f06a28e428f614d6ca392b6a856f6f1e54d198139b8fad8"
+    },
+    {
+      "source": "pi-command-center/setup-knowledge-project.mjs",
+      "target": "runtime/pi/setup-knowledge-project.mjs",
+      "sha256": "e3f985a1a07b06a0a34b30a6aba9af60c3cfa5c9ccb63cf931d5e01e4c2456a8"
+    },
+    {
+      "source": "pi-command-center/lib/view.mjs",
+      "target": "runtime/pi/lib/view.mjs",
+      "sha256": "07762b0d369b201994ae4eab5a99d3bd70580cd38648f57e2479788bf1d19ba2"
+    },
+    {
+      "source": "pi-command-center/lib/demo-provider.mjs",
+      "target": "runtime/pi/lib/demo-provider.mjs",
+      "sha256": "ffb35f0723efb3be824e165f7d833b0ae5119eb495f4528068b0d1a0b13c8711"
+    },
+    {
+      "source": "pi-command-center/lib/keyboard.mjs",
+      "target": "runtime/pi/lib/keyboard.mjs",
+      "sha256": "c4f9d5e118fbe765746109b4b03efc97dd3e208c52e4f37a7222a3fc1e7ccb44"
+    },
+    {
+      "source": "pi-command-center/lib/knowledge-view.mjs",
+      "target": "runtime/pi/lib/knowledge-view.mjs",
+      "sha256": "0e6e40a1812e671cf2e62e9b269e2bef3c5abc854757da03a3184e329cd564c2"
+    },
+    {
+      "source": "pi-command-center/lib/terminal.mjs",
+      "target": "runtime/pi/lib/terminal.mjs",
+      "sha256": "e6fad147d43a7a72989ab1219aa3bea59196a241bca8f0bb0189bc756a45407d"
+    },
+    {
+      "source": "pi-command-center/lib/tools.mjs",
+      "target": "runtime/pi/lib/tools.mjs",
+      "sha256": "fbf4da2be1c4ffc4fecfc2e88c5fc37ded70dc6da4b0da02758bd8bff32f817e"
+    },
+    {
+      "source": "pi-command-center/lib/pi.mjs",
+      "target": "runtime/pi/lib/pi.mjs",
+      "sha256": "18c201ebfcf364492e7333746657ffd9882f28ea59c4e42ddd08271c2a7f3c81"
+    },
+    {
+      "source": "pi-command-center/lib/events.mjs",
+      "target": "runtime/pi/lib/events.mjs",
+      "sha256": "bedf0e4017110b491147a6257d8145a37196c031ad9604ce102cfda684f6ff9a"
+    },
+    {
+      "source": "pi-command-center/tests/start.test.mjs",
+      "target": "runtime/pi/tests/start.test.mjs",
+      "sha256": "5a762772ec818b51bff15cc6fb237610bae4ee4481c685a50b63633e6a0bf67c"
+    },
+    {
+      "source": "pi-command-center/tests/ui.test.mjs",
+      "target": "runtime/pi/tests/ui.test.mjs",
+      "sha256": "0bca8ccf3d4f2cd839fd2bb0a1e6fef4f282bae8d4086a06e4d34cd6523281f9"
+    },
+    {
+      "source": "pi-command-center/tests/publication.test.mjs",
+      "target": "runtime/pi/tests/publication.test.mjs",
+      "sha256": "96071c7da065dfb8eba1d763194236e80e6a23bb978297afa47b7314f2600944"
+    },
+    {
+      "source": "pi-command-center/tests/docker.test.mjs",
+      "target": "runtime/pi/tests/docker.test.mjs",
+      "sha256": "4743f9d53ecd71acdd2d08e5b375b0a660206b23a1e5c802e9737968c3627596"
+    },
+    {
+      "source": "pi-command-center/tests/demo-planner.test.mjs",
+      "target": "runtime/pi/tests/demo-planner.test.mjs",
+      "sha256": "fa32734252d58d4a7d7d521e99bbe0f445725a787e8eebe3c2afbdac72cc82d8"
+    },
+    {
+      "source": "pi-command-center/tests/integration.test.mjs",
+      "target": "runtime/pi/tests/integration.test.mjs",
+      "sha256": "dd8085b3cc8330158f26511edd8a7ea13ae6b0e3610ae3b266cb67d7ee4deaa4"
+    },
+    {
+      "source": "pi-command-center/tests/knowledge.test.mjs",
+      "target": "runtime/pi/tests/knowledge.test.mjs",
+      "sha256": "a8c5b072f286e989fdc472db9fc45e2f5097335993223cb55345400663ae63c0"
+    },
+    {
+      "source": "pi-command-center/tests/pi-runtime.test.mjs",
+      "target": "runtime/pi/tests/pi-runtime.test.mjs",
+      "sha256": "4b0270861b2d4dccfec3c48a329ef6f9fc3472a3dd646eb7739f653f4bd93a36"
+    },
+    {
+      "source": "pi-command-center/start",
+      "target": "runtime/pi/start",
+      "sha256": "0b1e1d866b28d51de32e40ddae447e6f488a8bb616773ee083bf455190edf335"
+    },
+    {
+      "source": "opencode-example/opencode/lib/agent-runtime.mjs",
+      "target": "runtime/core/lib/agent-runtime.mjs",
+      "sha256": "8b54530504348d09b1c67441f3f3cb5b4f817f330dc25fc66daf19904400ad3d"
+    },
+    {
+      "source": "opencode-example/opencode/lib/git-context.mjs",
+      "target": "runtime/core/lib/git-context.mjs",
+      "sha256": "29ceb5f58fa37b140b4b000ae65f085808d98cf36d3c35091e95c377808218ce"
+    },
+    {
+      "source": "opencode-example/opencode/lib/workspace-status.mjs",
+      "target": "runtime/core/lib/workspace-status.mjs",
+      "sha256": "a4a010bc1489395fe790a03d12bf70106db8bca458d3a0f61bd6f7f1faf7b5c1"
+    },
+    {
+      "source": "opencode-example/opencode/lib/docker-files.py",
+      "target": "runtime/core/lib/docker-files.py",
+      "sha256": "6d61eaafe4b321beedd779345736a16c071ed4a9732d4cf28fc0e09f5b3ae501"
+    },
+    {
+      "source": "opencode-example/opencode/lib/user-terminal.mjs",
+      "target": "runtime/core/lib/user-terminal.mjs",
+      "sha256": "df479a5b1bbe867a824afa219cb8a8fd62bcaadda12191890b081b19d3dbc2f9"
+    },
+    {
+      "source": "opencode-example/opencode/lib/dev-run.mjs",
+      "target": "runtime/core/lib/dev-run.mjs",
+      "sha256": "4b2f3804ed48e7cfdc4423a02b53fd36d3e2e181da25d0b3215f7faebf3cf9ea"
+    },
+    {
+      "source": "opencode-example/opencode/lib/process.mjs",
+      "target": "runtime/core/lib/process.mjs",
+      "sha256": "75a20b5fa2e9e6db3c9f2b164c4a88f9d2ff3f5091908283082b81e21e93fb38"
+    },
+    {
+      "source": "opencode-example/opencode/lib/controller.mjs",
+      "target": "runtime/core/lib/controller.mjs",
+      "sha256": "9d1d0156998806c116974f8a102efd790364f52e8f0edafd1e13b135ac67fb5f"
+    },
+    {
+      "source": "opencode-example/opencode/lib/recovery.mjs",
+      "target": "runtime/core/lib/recovery.mjs",
+      "sha256": "9965d506bd471852b986252b615ebc92e2a32cefc756827be0cb1b2eb8b905ca"
+    },
+    {
+      "source": "opencode-example/opencode/lib/policy.mjs",
+      "target": "runtime/core/lib/policy.mjs",
+      "sha256": "e524bad27f28061d32d4a8790d8c4869c33181f6b65bbdb08a15ee3b21a55082"
+    },
+    {
+      "source": "opencode-example/opencode/lib/launcher.mjs",
+      "target": "runtime/core/lib/launcher.mjs",
+      "sha256": "0fb0fe36bf2dc9353b1e5ea550a42b6b939f7bdfada211e6ddf17f547114ab09"
+    },
+    {
+      "source": "opencode-example/opencode/lib/knowledge.mjs",
+      "target": "runtime/core/lib/knowledge.mjs",
+      "sha256": "6d9e4eb3adeed842c7122f53bce09b12d383cd5c4bbb05c25ee28fd14e8720df"
+    },
+    {
+      "source": "opencode-example/opencode/lib/docker.mjs",
+      "target": "runtime/core/lib/docker.mjs",
+      "sha256": "5966c5ff5da3156aeca6d91045ddbc32c9cb718e77d3f8a9ad86d9f14c374743"
+    },
+    {
+      "source": "opencode-example/opencode/lib/audit.mjs",
+      "target": "runtime/core/lib/audit.mjs",
+      "sha256": "00266089d0c3837bb31fdae097e18e2f4cb6bd30a1ba6eaea9d99649d6f33aa1"
+    },
+    {
+      "source": "opencode-example/opencode/lib/human-review.mjs",
+      "target": "runtime/core/lib/human-review.mjs",
+      "sha256": "cce8cfac355bc5a3b00db6b271c2b5527df886c044d4d3a9175bb16ae2f1b930"
+    },
+    {
+      "source": "opencode-example/opencode/lib/user-actions.mjs",
+      "target": "runtime/core/lib/user-actions.mjs",
+      "sha256": "ba5bae05eef79f7392c40a16bc2682dd7d4e3833fbe308512b8fb5270f16ff7d"
+    },
+    {
+      "source": "opencode-example/opencode/lib/background.mjs",
+      "target": "runtime/core/lib/background.mjs",
+      "sha256": "bb1359903be838dffee95607aee8ed643c5a9b2c96926f1d1d1b4bcbe205d5ff"
+    },
+    {
+      "source": "opencode-example/opencode/lib/bash-audit.mjs",
+      "target": "runtime/core/lib/bash-audit.mjs",
+      "sha256": "4af0dbdf52720dd905a3f8223376822bf5eb28f439d38b6c7aa4c9610781f69a"
+    },
+    {
+      "source": "opencode-example/opencode/lib/git-workflow.mjs",
+      "target": "runtime/core/lib/git-workflow.mjs",
+      "sha256": "0495ba9617519f761859da514fe8c06dfc7f77407d7bb46fb600ad46565ad9c2"
+    },
+    {
+      "source": "opencode-example/opencode/lib/publication.mjs",
+      "target": "runtime/core/lib/publication.mjs",
+      "sha256": "48beca61f2a296894f9d9f5068a4b27860ed30ed0363b000781362ac547e0f8d"
+    },
+    {
+      "source": "opencode-example/opencode/schemas/review.schema.json",
+      "target": "runtime/core/schemas/review.schema.json",
+      "sha256": "9fab3e68f94653ed7d97b420b54cacf41f7ceb5035509d88c0b06238f400f2bf"
+    },
+    {
+      "source": "opencode-example/opencode/rules/execution.md",
+      "target": "runtime/core/rules/execution.md",
+      "sha256": "46b111c9acc5b7fc7e2a7d3078ca1de46467a44e270595da0bd3d1d291c88394"
+    },
+    {
+      "source": "opencode-example/opencode/rules/review.md",
+      "target": "runtime/core/rules/review.md",
+      "sha256": "bf02a7907de42e5de40ef4f00a21d40d87ba4dc27ebde2a04aa3e6d511000825"
+    },
+    {
+      "source": "opencode-example/opencode/demo/mock-opencode.mjs",
+      "target": "runtime/core/demo/mock-opencode.mjs",
+      "sha256": "21fe125fc44c34bc5c91ee334c200d2f4982479e201a5ecea3383ddb561f2533"
+    },
+    {
+      "source": "opencode-example/opencode/demo/run.mjs",
+      "target": "runtime/core/demo/run.mjs",
+      "sha256": "95a9d1e25b50dfee4a3475a13f3eb5eb17fe8e2de0c91568a0d759388a0b36f0"
+    },
+    {
+      "source": "opencode-example/opencode/demo/fixture.mjs",
+      "target": "runtime/core/demo/fixture.mjs",
+      "sha256": "7ec53b0066cb899a1f63bf6612ce3f49b12faf17dd985fb346804322638fa058"
+    },
+    {
+      "source": "opencode-example/opencode/demo/mock-hook.mjs",
+      "target": "runtime/core/demo/mock-hook.mjs",
+      "sha256": "aaa1e775cc887d997fa6b074246d2f4db140d6be5dd9a6194d88b501cf9144c1"
+    },
+    {
+      "source": "opencode-example/opencode/demo/git-context-smoke.mjs",
+      "target": "runtime/core/demo/git-context-smoke.mjs",
+      "sha256": "c2452a4b270e68bb5732ec5f64ed064b0394eacc22115aa31e114a728fe5751a"
+    },
+    {
+      "source": "opencode-example/opencode/demo/user-action-smoke.mjs",
+      "target": "runtime/core/demo/user-action-smoke.mjs",
+      "sha256": "6b7aede89ba131d4a0e068a4a6f2b978c6f99e28c3ed9feb3d5acecf26d43da2"
+    },
+    {
+      "source": "opencode-example/opencode/demo/workspace-smoke.mjs",
+      "target": "runtime/core/demo/workspace-smoke.mjs",
+      "sha256": "109b0469fa929ed2afaefd494d2462663c5926021d1eca4c1400bd1ac882131c"
+    },
+    {
+      "source": "opencode-example/opencode/demo/check.mjs",
+      "target": "runtime/core/demo/check.mjs",
+      "sha256": "3356e618c10d1b64c67e49b5b39f4e5fbf0d3983f48ebc5eae4ff752574eebb4"
+    },
+    {
+      "source": "opencode-example/opencode/demo/dev-run-smoke.mjs",
+      "target": "runtime/core/demo/dev-run-smoke.mjs",
+      "sha256": "27f9e3c19da6907d6862f7b6665af3d93017ee9205ac0e8e3e4e66a44b43d875"
+    },
+    {
+      "source": "opencode-example/opencode/tests/recovery.test.mjs",
+      "target": "runtime/core/tests/recovery.test.mjs",
+      "sha256": "18c81d8c372f54dafaeb414dd7ecd6630abd94f94b8d7e0903a0f394467bbd4a"
+    },
+    {
+      "source": "opencode-example/opencode/tests/agent-history.test.mjs",
+      "target": "runtime/core/tests/agent-history.test.mjs",
+      "sha256": "04c5a747b6e196bee77e08d27ef67c1c2fe1f46f1316cdf06af125b0f8efef60"
+    },
+    {
+      "source": "opencode-example/opencode/tests/git-context.test.mjs",
+      "target": "runtime/core/tests/git-context.test.mjs",
+      "sha256": "dee01df256dc4b0c23be8ff7a356110c3bdfa33e3570eb6c56f20af922a7ba36"
+    },
+    {
+      "source": "opencode-example/opencode/tests/workspace-status.test.mjs",
+      "target": "runtime/core/tests/workspace-status.test.mjs",
+      "sha256": "1fe2d3e57e2e35f9308b3c79dcb715eea6ab60fde9a257ee3f4d116a973cbcbc"
+    },
+    {
+      "source": "opencode-example/opencode/tests/review-editor.test.mjs",
+      "target": "runtime/core/tests/review-editor.test.mjs",
+      "sha256": "ae14246084ddfa3e419620051f6cd405c3d9f2f529d7e8098892c7bbce36005b"
+    },
+    {
+      "source": "opencode-example/opencode/tests/user-terminal.test.mjs",
+      "target": "runtime/core/tests/user-terminal.test.mjs",
+      "sha256": "116c09c1712873d416afd5b81bc0c81d059809c4a3fce3aa6e45155112547963"
+    },
+    {
+      "source": "opencode-example/opencode/tests/tui.test.mjs",
+      "target": "runtime/core/tests/tui.test.mjs",
+      "sha256": "5619efdc227c26b3101e3d6e0d43282a67c4af4a4efc617aa5fbdc57afd5856e"
+    },
+    {
+      "source": "opencode-example/opencode/tests/workflow.test.mjs",
+      "target": "runtime/core/tests/workflow.test.mjs",
+      "sha256": "8ff395dd6ee668e3c68f6a4154965ed9c12a486b4e61b78f3a1f3c121b376a31"
+    },
+    {
+      "source": "opencode-example/opencode/tests/dev-run.test.mjs",
+      "target": "runtime/core/tests/dev-run.test.mjs",
+      "sha256": "cdc4ca3d601daa8a6929feb5dc6b4335843827ab2795c83a9d73bed0bda278e7"
+    },
+    {
+      "source": "opencode-example/opencode/tests/human-review.test.mjs",
+      "target": "runtime/core/tests/human-review.test.mjs",
+      "sha256": "7686b8805b14c93671439f115dc4992d2e6605cab7c01dd61edc989ac80c6b94"
+    },
+    {
+      "source": "opencode-example/opencode/tests/user-actions.test.mjs",
+      "target": "runtime/core/tests/user-actions.test.mjs",
+      "sha256": "66f4a3c3dd7eef0e1fb4cb9e6ab5c23b56038e45e8e7b8ad98f840ad6a28ceac"
+    },
+    {
+      "source": "opencode-example/opencode/tests/documents.test.mjs",
+      "target": "runtime/core/tests/documents.test.mjs",
+      "sha256": "eb156939b13457c11d00aa121c209a4d054cc8f64789607574219608de6ff6cf"
+    },
+    {
+      "source": "opencode-example/opencode/tests/git-workflow.test.mjs",
+      "target": "runtime/core/tests/git-workflow.test.mjs",
+      "sha256": "fbab20c5d4f224a511a4c6eb85acd7557970fcfccbc4b183e927352515729cf3"
+    },
+    {
+      "source": "opencode-example/opencode/tasks/local.example.json",
+      "target": "runtime/core/tasks/local.example.json",
+      "sha256": "bfded14121454c2f3cc1919c8e4fb37fc6579b3a449f0aa8ddfb5f72832043ae"
+    },
+    {
+      "source": "opencode-example/opencode/tasks/jira.example.json",
+      "target": "runtime/core/tasks/jira.example.json",
+      "sha256": "5fb43aa63257cffee83aafabfb600b7138fc67fa7092a02a4cfe84d73a7a83d2"
+    },
+    {
+      "source": "opencode-example/opencode/tasks/plan.example.md",
+      "target": "runtime/core/tasks/plan.example.md",
+      "sha256": "bbc17cdc1c0ac8b702c79ca2287e0f8a38ca35e2b6915abdd186f4656464a67f"
+    },
+    {
+      "source": "opencode-example/opencode/tui/review-guidance.mjs",
+      "target": "runtime/core/tui/review-guidance.mjs",
+      "sha256": "777776e30ce0a1735d895208423cce352c1b4e7a3d1d37f15efe15fc44ea537f"
+    },
+    {
+      "source": "opencode-example/opencode/tui/documents.mjs",
+      "target": "runtime/core/tui/documents.mjs",
+      "sha256": "e304ee0196baf32d99ecc25bc6020d0424577cb4d64dc95de33cb1aadee5a86f"
+    },
+    {
+      "source": "opencode-example/opencode/tui/command-center.mjs",
+      "target": "runtime/core/tui/command-center.mjs",
+      "sha256": "36b4ecc8c4a6625bbbe97f63fdb45651402893dc11e9bd0d7b7e9b9da44c380f"
+    },
+    {
+      "source": "opencode-example/opencode/tui/navigation.mjs",
+      "target": "runtime/core/tui/navigation.mjs",
+      "sha256": "5cf088d505257f67cdab555dba3fd1ff68c9cfafc82c3480b21f7887c345ff19"
+    },
+    {
+      "source": "opencode-example/opencode/tui/agent-history.mjs",
+      "target": "runtime/core/tui/agent-history.mjs",
+      "sha256": "8235d5875f879c3bc7ca99add458efabcdfe5b7b0dde0c3fd96b819e3547f173"
+    },
+    {
+      "source": "opencode-example/opencode/tui/review-editor.mjs",
+      "target": "runtime/core/tui/review-editor.mjs",
+      "sha256": "15c776f1a8c75b46ad399ddf534200dae01428dbae303531e5db4915999d51bb"
+    },
+    {
+      "source": "opencode-example/opencode/tui/terminal.mjs",
+      "target": "runtime/core/tui/terminal.mjs",
+      "sha256": "217eb8239ac1a8bdbb70d07260a443207ccd5e9617d343ce252f46ae1b3b499e"
+    },
+    {
+      "source": "opencode-example/opencode/cli.mjs",
+      "target": "runtime/core/cli.mjs",
+      "sha256": "48324d478d86d0d814ebed4b73da8b5e241280673a957cfd95d0f018bcf1b7ab"
+    },
+    {
+      "source": "opencode-example/opencode/runner.mjs",
+      "target": "runtime/core/runner.mjs",
+      "sha256": "060c2d444c3933cf8ea3f47a83a7ddc2a08a887aa699512b55d2d3ac76ef5112"
+    },
+    {
+      "source": "opencode-example/opencode/knowledge-runner.mjs",
+      "target": "runtime/core/knowledge-runner.mjs",
+      "sha256": "92ac27f5bdff6d8d8608df9419ee6e4b560708edbde66dcfc55e308b17453a5a"
+    },
+    {
+      "source": "docker-sandbox/example/catalog/catalog.py",
+      "target": "runtime/docker-sandbox/example/catalog/catalog.py",
+      "sha256": "7e193ccdff9feeb479ee8b57a5b93a553294de19145a6e4bc6ba1c6b76d9d9d4"
+    },
+    {
+      "source": "docker-sandbox/example/catalog/pyproject.toml",
+      "target": "runtime/docker-sandbox/example/catalog/pyproject.toml",
+      "sha256": "04319eafeb5c8ca9a7e236592971003eb82381c2cb5aaf48e1738e1bf02af65e"
+    },
+    {
+      "source": "docker-sandbox/example/catalog/tests/test_catalog.py",
+      "target": "runtime/docker-sandbox/example/catalog/tests/test_catalog.py",
+      "sha256": "38ddc61e1dd17581479d95ed6ec8cd85ac2b0d3b3a548f2c0332582fe3f90954"
+    },
+    {
+      "source": "docker-sandbox/example/catalog/data/items.csv",
+      "target": "runtime/docker-sandbox/example/catalog/data/items.csv",
+      "sha256": "ad81bfbf52a017af92d043fc6924ec3a3c5065409a493af6b63b69313333d630"
+    },
+    {
+      "source": "docker-sandbox/image/Dockerfile",
+      "target": "docker/Dockerfile",
+      "sha256": "6d6c563f3f74b08d8c4d14f227eed8d5d5313ee27ffa37732362e20c8d9bafea"
+    },
+    {
+      "source": "docker-sandbox/image/.dockerignore",
+      "target": "docker/.dockerignore",
+      "sha256": "08bb7a70af4ae5a9c15226f499f2e76055ebd521550f87eb102a1316cdb9df38"
+    },
+    {
+      "source": "docker-sandbox/examples/Dockerfile.cpp",
+      "target": "docker/Dockerfile.cpp",
+      "sha256": "064b1b239c94318b137a149b7544e174520e2620310fc003b812b6e88e639217"
+    }
+  ]
+}
