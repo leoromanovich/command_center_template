@@ -1,9 +1,45 @@
 {
   pkgs,
-  src,
 }:
 
 let
+  # Копия поддерева loopeng без машинного состояния: фильтр зеркалит loopeng/.gitignore.
+  # Хэш store-пути меняется только при изменении кода движка; правки остальных
+  # файлов CC и runtime-состояние инстанса (.pi/, WorkTree/, cc.local.json)
+  # derivation не инвалидируют.
+  loopengSrc = builtins.path {
+    path = ../../loopeng;
+    name = "loopeng";
+    filter =
+      path: type:
+      let
+        base = baseNameOf path;
+        excludedDirs = [
+          ".git"
+          ".pi"
+          ".local"
+          "WorkTree"
+          "wt"
+          "node_modules"
+          "__pycache__"
+          ".ruff_cache"
+          ".venv"
+          "graphify-out"
+          ".demo"
+          ".docker-demo"
+          ".docker-project"
+          ".knowledge-project"
+        ];
+        excludedFiles = [
+          "cc.local.json"
+          "model-prices.local.json"
+          ".DS_Store"
+        ];
+        isEnvFile = base == ".env" || (pkgs.lib.hasPrefix ".env." base && base != ".env.example");
+      in
+      !builtins.elem base excludedDirs && !builtins.elem base excludedFiles && !isEnvFile;
+  };
+
   node = pkgs.nodejs_22;
 
   # node_modules для hermetic-тестов: FOD выполняет npm ci по закоммиченному
@@ -42,7 +78,7 @@ let
     export GIT_COMMITTER_EMAIL=loopeng-check@localhost
     export PI_PACKAGE_ROOT="${npmDeps}/node_modules/@earendil-works/pi-coding-agent"
 
-    cp -r ${src} repo
+    cp -r ${loopengSrc} repo
     chmod -R u+w repo
     cd repo
 
@@ -61,7 +97,7 @@ let
       pkgs.git
     ];
     text = ''
-      exec ${src}/cc build-image "$@"
+      exec ${loopengSrc}/cc build-image "$@"
     '';
   };
 in

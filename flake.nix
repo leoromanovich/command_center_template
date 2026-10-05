@@ -31,7 +31,7 @@
           projects = import ./nix/projects { inherit pkgs ccLib inputs; };
           workflows = import ./nix/workflows { inherit pkgs ccLib projects; };
           localDev = import ./nix/devenv { inherit pkgs ccLib inputs; };
-          loopeng = import ./nix/loopeng { inherit pkgs; src = "${self}/loopeng"; };
+          loopeng = import ./nix/loopeng { inherit pkgs; };
           validator = pkgs.writeShellApplication {
             name = "cc-validate";
             runtimeInputs = [ pkgs.python3 ];
