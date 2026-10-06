@@ -59,7 +59,7 @@ class DispatchTest(unittest.TestCase):
                             expected = ["--extra-experimental-features", "nix-command flakes"]
                             expected += ["flake", command] if command in ("show", "check") else [command]
                             if feature_name:
-                                expected += ["--override-input", "pilot-src", f"path:{worktree}"]
+                                expected += ["--override-input", "pilot-src", f"path:{worktree.resolve()}"]
                             expected += [str(root) + ("#pilot" if command in ("build", "run") else "")]
                             if command == "check":
                                 expected += ["--keep-going"]
