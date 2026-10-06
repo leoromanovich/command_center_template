@@ -2,8 +2,8 @@
 id: glossary.wt
 title: wt — worktree
 status: active
-summary: wt — единая аббревиатура worktree в этом CC; покрывает папку wt/<task>/<repo> движка loopeng и суффикс <repo>_wt в контракте opencode-фич.
-verified_at: 2026-10-05
+summary: wt — единая аббревиатура worktree в этом CC; покрывает корневую папку wt/<feature>/<repo>_wt opencode-контракта и вложенную loopeng/wt/<task>/<repo> движка loopeng.
+verified_at: 2026-10-06
 evidence:
   - loopeng/cc.config.json
   - loopeng/runtime/core/lib/controller.mjs
@@ -13,6 +13,7 @@ relations:
   - docs/glossary/index.md
   - docs/rules/worktrees.md
   - docs/decisions/0007-loopeng-execution-engine.md
+  - docs/decisions/0008-self-contained-cc-topology.md
 ---
 
 # wt — worktree
@@ -21,16 +22,16 @@ relations:
 
 `wt` — стандартное сокращение «worktree» (Git worktree) в этом репозитории. Встречается в двух формах:
 
+- `wt/<feature>/<repo>_wt/` в корне CC — feature worktrees opencode-контракта (`worktrees` в `templates/control-center.json`); создаются через `./cc worktree`; папка gitignored.
 - `loopeng/wt/<task>/<repo>` — worktree-родитель движка loopeng (`worktreeParent` в `loopeng/cc.config.json`); feature-работа агентных циклов Pi идёт здесь.
-- `../worktrees/<feature>/<repo>_wt/` — feature worktrees opencode-контракта CC (`worktreePattern` в `templates/control-center.json`); создаются через `./cc worktree`.
 
 Обе формы — изолированные изменяемые checkout от общей базы; base checkout остаётся чистым.
 
 ## Не путать с
 
-- `../repos/<repo>/` — базовые clones для синхронизации и создания worktrees, не место feature-изменений.
-- `../worktrees/` (без `_wt`) — корневая папка feature-worktrees CC, а не worktree сам по себе.
-- Историческое `WorkTree/` — прежнее имя папки loopeng до переименования в `wt`; встретить его можно только в старых снапшотах и backup.
+- `source_repos/<repo>/` — базовые clones для синхронизации и создания worktrees, не место feature-изменений; gitignored.
+- Историческое sibling-расположение worktrees снаружи корня CC — прежняя топология до decision 0008; встретить её можно только в старых снапшотах и завершённых планах.
+- Историческое `WorkTree/` — прежнее имя папки loopeng до переименования в `wt`.
 
 ## Границы применимости
 

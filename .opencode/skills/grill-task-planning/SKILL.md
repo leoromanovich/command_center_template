@@ -29,7 +29,7 @@ description: Conduct an evidence-first grilling session that turns an ambiguous 
 
 ## Worktree scope
 
-Выбери стабильный `task-id`; ему соответствует `../worktrees/<task-id>/<repo>_wt`. Включай только изменяемые repos; read-only dependency не требует worktree.
+Выбери стабильный `task-id`; ему соответствует `wt/<task-id>/<repo>_wt` внутри корня CC. Включай только изменяемые repos; read-only dependency не требует worktree.
 
 После перехода к implementation используй `./cc worktree create <task-id> <repo>...` и `./cc feature <task-id> ...`.
 

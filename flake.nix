@@ -55,6 +55,7 @@
                 pkgs.lib.makeBinPath [
                   pkgs.bash
                   pkgs.coreutils
+                  pkgs.git
                   pkgs.python3
                 ]
               }

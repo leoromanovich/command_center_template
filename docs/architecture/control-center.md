@@ -2,8 +2,8 @@
 id: architecture.control-center
 title: Границы Control Center
 status: active
-summary: Control Center хранит карту, исполняемые межпроектные контракты и контекст, но не копирует sibling-репозитории.
-verified_at: 2026-07-21
+summary: Control Center хранит карту, исполняемые межпроектные контракты и контекст; клоны sibling-репозиториев лежат внутри корня, но вне Git-истории CC.
+verified_at: 2026-10-06
 evidence:
   - templates/control-center.json
   - flake.nix
@@ -16,6 +16,7 @@ relations:
   - docs/rules/project-adapters.md
   - docs/rules/worktrees.md
   - docs/decisions/0006-devenv-local-runtime.md
+  - docs/decisions/0008-self-contained-cc-topology.md
 ---
 
 # Границы Control Center
@@ -39,7 +40,7 @@ relations:
 - непроверенные reflection/daydreaming-кандидаты;
 - универсальный UI.
 
-Base clones и feature worktrees также находятся снаружи: `../repos/` и `../worktrees/<feature>/`.
+Base clones и feature worktrees находятся внутри корня CC в gitignored `source_repos/` и `wt/<feature>/` — физически локально, но вне Git-истории и flake-source CC (см. [decision 0008](../decisions/0008-self-contained-cc-topology.md)).
 
 ## Поток
 

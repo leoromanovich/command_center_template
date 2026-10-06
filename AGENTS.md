@@ -11,7 +11,7 @@
 3. определи режим `new` или `migration`;
 4. веди grilling до проверяемого состояния, а не до получения первого ответа.
 
-Не изобретай для CC новую топологию: базовые clones живут в `../repos/`, feature worktrees — в `../worktrees/<feature>/<repo>_wt/`. Сам CC остаётся в своём корне.
+Не изобретай для CC новую топологию: базовые clones живут в `source_repos/`, feature worktrees — в `wt/<feature>/<repo>_wt/` внутри корня CC; обе папки gitignored. Состав репозиториев CC определяют grilling-инвентаризация bootstrap и `./cc repo scan`.
 
 Если пользователь просит спланировать сложную или агентную задачу, загрузи `grill-task-planning`. Храни текущие планы в `plans/active/`, отменённые — в `plans/archived/`, выполненные — в `plans/completed/`; переходы делай через `./cc plan`.
 

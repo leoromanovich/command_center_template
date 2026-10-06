@@ -25,13 +25,12 @@
 ## Неизменная топология
 
 ```text
-Projects/
-├── project1_CC/
-├── project2_CC/
-├── repos/
+<cc_root>/
+├── control-center.json
+├── source_repos/
 │   ├── repo1/
 │   └── repo2/
-└── worktrees/
+└── wt/
     ├── feature1/
     │   ├── repo1_wt/
     │   └── repo2_wt/
@@ -39,19 +38,22 @@ Projects/
         └── ...
 ```
 
-Относительно любого `<project>_CC`:
+Относительно корня CC:
 
-- base checkouts: `../repos/<repo>`;
-- worktrees: `../worktrees/<feature>/<repo>_wt`;
-- CC не копируется в feature-папку;
+- base checkouts: `source_repos/<repo>`;
+- worktrees: `wt/<feature>/<repo>_wt`;
+- `source_repos/` и `wt/` обязаны быть в `.gitignore` CC — проверяет `./cc bootstrap validate`;
 - локальные absolute paths не попадают в Git;
 - Nix получает feature sources через `--override-input` из worktree manifest.
+
+Состав репозиториев при первичной настройке определяют grilling-инвентаризация и `./cc repo scan` (черновики `discovered` из существующих клонов `source_repos/`).
 
 Изменить эту топологию можно только отдельным явным решением пользователя.
 
 Используй исполняемый интерфейс, а не ручные `git worktree` в обычной работе:
 
 ```bash
+./cc repo scan
 ./cc repo add <repo> --remote <git-url> --role <role> --clone
 ./cc worktree create <feature> <repo>...
 ./cc feature <feature> check

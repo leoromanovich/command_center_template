@@ -73,6 +73,29 @@ def is_git_checkout(path: Path) -> bool:
     return result.returncode == 0 and result.stdout.strip() == "true"
 
 
+def origin_remote(checkout: Path) -> str | None:
+    result = subprocess.run(
+        ["git", "-C", str(checkout), "remote", "get-url", "origin"],
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        return None
+    remote = result.stdout.strip()
+    return remote or None
+
+
+def detect_default_branch(checkout: Path) -> str:
+    result = subprocess.run(
+        ["git", "-C", str(checkout), "symbolic-ref", "--short", "HEAD"],
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode == 0 and result.stdout.strip():
+        return result.stdout.strip()
+    return "main"
+
+
 def canonical_remote(value: str, base: Path) -> str:
     if "://" in value or re.match(r"^[^/@]+@[^:]+:", value):
         return value.rstrip("/")
@@ -139,6 +162,65 @@ def command_add(root: Path, args: argparse.Namespace) -> None:
     print(f"added {args.id}: base checkout {state} at {checkout}; knowledge {knowledge}")
 
 
+def command_scan(root: Path, _: argparse.Namespace) -> None:
+    _, repositories_root = layout(root)
+    directory = root / "catalog" / "repositories"
+    directory.mkdir(parents=True, exist_ok=True)
+    known = {path.stem for path in directory.glob("*.json")}
+    if not repositories_root.is_dir():
+        print(f"no {repositories_root.name}/ directory yet; clone repositories there and scan again")
+        return
+
+    drafted: list[str] = []
+    for entry in sorted(repositories_root.iterdir()):
+        if not entry.is_dir():
+            continue
+        if not is_git_checkout(entry):
+            print(f"skipped {entry.name}: not a Git checkout")
+            continue
+        if not ID.fullmatch(entry.name):
+            print(f"skipped {entry.name}: directory name is not a valid repository id")
+            continue
+        if entry.name in known:
+            continue
+        remote = origin_remote(entry)
+        if remote is None:
+            print(f"skipped {entry.name}: no origin remote to pin")
+            continue
+        if Path(remote).is_absolute():
+            print(f"skipped {entry.name}: origin is an absolute local path; use a portable Git URL")
+            continue
+        branch = detect_default_branch(entry)
+        knowledge = f"docs/projects/{entry.name}/index.md"
+        create_knowledge_index(root, entry.name, "unassigned", remote)
+        write_json(
+            descriptor_path(root, entry.name),
+            {
+                "schemaVersion": 1,
+                "id": entry.name,
+                "checkout": entry.name,
+                "remote": remote,
+                "defaultBranch": branch,
+                "role": "unassigned",
+                "sourceInput": entry.name,
+                "adapter": f"nix/projects/{entry.name}.nix",
+                "knowledge": knowledge,
+                "status": "discovered",
+            },
+        )
+        drafted.append(entry.name)
+        print(f"drafted {entry.name}: status discovered, role unassigned; remote {remote}")
+
+    for identifier in sorted(known):
+        if not (repositories_root / identifier).is_dir():
+            print(f"note: catalog repository '{identifier}' has no base checkout in {repositories_root.name}/")
+
+    if drafted:
+        print(f"{len(drafted)} draft(s); assign role and adapter in grilling, then ./cc repo set-status")
+    else:
+        print("no new repositories discovered")
+
+
 def command_list(root: Path, _: argparse.Namespace) -> None:
     _, repositories_root = layout(root)
     directory = root / "catalog" / "repositories"
@@ -185,6 +267,9 @@ def parser() -> argparse.ArgumentParser:
     add.add_argument("--adapter")
     add.add_argument("--clone", action="store_true")
     add.set_defaults(handler=command_add)
+
+    scan = subparsers.add_parser("scan")
+    scan.set_defaults(handler=command_scan)
 
     listing = subparsers.add_parser("list")
     listing.set_defaults(handler=command_list)

@@ -16,7 +16,7 @@ usage() {
     '  validate       Validate the Markdown knowledge graph' \
     '  bootstrap install [target]  Materialize a new CC from this clone' \
     '  bootstrap validate          Validate the configured CC contract' \
-    '  repo <add|list|show|set-status> ...' \
+    '  repo <add|scan|list|show|set-status> ...' \
     '  worktree <create|add|status|remove> ...' \
     '  plan <create|list|show|accept|reflect|archive|complete> ...' \
     '  feature <name> <show|check|build|run> ...  Use feature input overrides'

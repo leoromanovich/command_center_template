@@ -71,6 +71,16 @@ def materialize(source: Path, target: Path) -> None:
         encoding="utf-8",
     )
 
+    gitignore = target / ".gitignore"
+    existing = gitignore.read_text(encoding="utf-8") if gitignore.exists() else ""
+    missing = [entry for entry in ("/source_repos/", "/wt/") if entry not in existing]
+    if missing:
+        with gitignore.open("a", encoding="utf-8") as stream:
+            if existing and not existing.endswith("\n"):
+                stream.write("\n")
+            for entry in missing:
+                stream.write(f"{entry}\n")
+
     for relative in (
         "catalog/repositories",
         "catalog/workflows",

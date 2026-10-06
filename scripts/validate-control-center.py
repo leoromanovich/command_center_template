@@ -14,11 +14,12 @@ ID = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
 CC_STATUSES = {"discovery", "adapting", "ready"}
 REPOSITORY_STATUSES = {"discovered", "adapted", "verified", "blocked"}
 EXPECTED_LAYOUT = {
-    "projectsRoot": "..",
-    "repositories": "../repos",
-    "worktrees": "../worktrees",
+    "projectsRoot": ".",
+    "repositories": "source_repos",
+    "worktrees": "wt",
     "worktreePattern": "{feature}/{repository}_wt",
 }
+EXPECTED_IGNORED_PATHS = ("/source_repos/", "/wt/")
 EXPECTED_CANDIDATE_INBOX = ".control-center-knowledge/candidates"
 DAYDREAMING_MODES = {"disabled", "manual", "scheduled"}
 PLAN_LIFECYCLES = ("active", "archived", "completed")
@@ -221,7 +222,16 @@ def validate(root: Path) -> list[str]:
     if status not in CC_STATUSES:
         errors.append(f"control-center.json: unsupported status '{status}'")
     if manifest.get("layout") != EXPECTED_LAYOUT:
-        errors.append("control-center.json: layout does not match the Projects/repos/worktrees contract")
+        errors.append("control-center.json: layout does not match the self-contained source_repos/wt contract")
+    gitignore = root / ".gitignore"
+    try:
+        ignored = gitignore.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        ignored = ""
+        errors.append(".gitignore: file is missing")
+    for entry in EXPECTED_IGNORED_PATHS:
+        if entry not in ignored:
+            errors.append(f".gitignore: must ignore '{entry}' so clones stay outside the CC git history")
     knowledge = manifest.get("knowledge")
     if not isinstance(knowledge, dict):
         errors.append("control-center.json: knowledge policy must be an object")

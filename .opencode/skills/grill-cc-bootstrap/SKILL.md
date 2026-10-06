@@ -14,8 +14,8 @@ description: Conduct an evidence-first grilling session that creates a new Contr
 3. Зафиксируй имя, status и topology в `control-center.json`.
 4. Подтверди policy обязательной task consolidation и режим daydreaming в `control-center.json`.
 5. Собери use cases, границы и полномочия.
-6. Составь repository inventory. Не пиши adapters до согласования имён, ролей и связей.
-7. Онборди по одному repo: `./cc repo add` → inspect → flake input/adapter → package/check → `./cc repo set-status <id> verified`.
+6. Составь repository inventory: закрой пробелы grilling-вопросами, затем запусти `./cc repo scan` — существующие клоны в `source_repos/` станут черновиками catalog (`discovered`). Не пиши adapters до согласования имён, ролей и связей.
+7. Онборди по одному repo: `./cc repo add` (для отсутствующих клонов) или правка черновика → inspect → flake input/adapter → package/check → `./cc repo set-status <id> verified`.
 8. Только затем собери workflows и benchmarks.
 9. Замени template README и project map реальными данными; удали examples и placeholders.
 

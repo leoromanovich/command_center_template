@@ -41,6 +41,7 @@ relations:
 - [Lifecycle планов](decisions/0004-plan-lifecycle.md)
 - [Evidence-gated консолидация](decisions/0005-evidence-gated-consolidation.md)
 - [Вендоренный loopeng как execution engine](decisions/0007-loopeng-execution-engine.md)
+- [Самодостаточная топология CC](decisions/0008-self-contained-cc-topology.md)
 
 ## Текущий контекст
 

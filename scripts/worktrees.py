@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Manage feature worktrees shared under Projects/worktrees."""
+"""Manage feature worktrees under the Control Center wt/ directory."""
 
 from __future__ import annotations
 
@@ -80,12 +80,12 @@ class Context:
         try:
             return str(path.resolve().relative_to(self.projects_root))
         except ValueError as error:
-            raise ValueError(f"path escapes Projects root: {path}") from error
+            raise ValueError(f"path escapes Control Center root: {path}") from error
 
     def resolve_project_path(self, value: str) -> Path:
         path = (self.projects_root / value).resolve()
         if self.projects_root not in path.parents:
-            raise ValueError(f"manifest path escapes Projects root: {value}")
+            raise ValueError(f"manifest path escapes Control Center root: {value}")
         return path
 
 

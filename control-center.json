@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "name": "__CONTROL_CENTER_NAME__",
+  "name": "control_center",
   "status": "discovery",
   "layout": {
     "projectsRoot": ".",

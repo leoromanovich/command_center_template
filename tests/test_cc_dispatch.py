@@ -25,13 +25,13 @@ class DispatchTest(unittest.TestCase):
             manifest = json.loads((SOURCE / "templates/control-center.json").read_text())
             manifest["name"] = "test-cc"
             (root / "control-center.json").write_text(json.dumps(manifest))
-            feature = parent / "worktrees/feature-one"
+            feature = root / "wt/feature-one"
             worktree = feature / "pilot_wt"
             worktree.mkdir(parents=True)
             (feature / ".cc-worktree.json").write_text(json.dumps({
                 "feature": "feature-one", "controlCenter": "test-cc",
                 "repositories": {"pilot": {"sourceInput": "pilot-src",
-                    "worktree": "worktrees/feature-one/pilot_wt"}},
+                    "worktree": "wt/feature-one/pilot_wt"}},
             }))
             binary = parent / "bin"
             binary.mkdir()
