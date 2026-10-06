@@ -15,5 +15,5 @@ relations:
 
 Хак хранится отдельной заметкой и связывается минимум с решением либо техническим долгом. Запись объясняет причину, границы, риск и `remove_when`.
 
-Текущих записей нет.
+- [npm ci в FOD и ручная integrity для shrinkwrap-nested пакетов](npm-shrinkwrap-integrity.md) — hermetic node-check при отсутствии npm-deps builder в nixpkgs 26.05.
 
