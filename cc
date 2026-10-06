@@ -42,6 +42,20 @@ load_feature_overrides() {
   fi
 }
 
+warn_untracked_docs() {
+  if ! command -v git >/dev/null 2>&1 || ! git -C "$cc_root" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    return
+  fi
+  local untracked
+  untracked="$(git -C "$cc_root" ls-files --others --exclude-standard -- docs)"
+  if [[ -n "$untracked" ]]; then
+    printf '%s\n' 'warning: untracked files are invisible to flake checks; stage them with git add:' >&2
+    while IFS= read -r line; do
+      printf '  %s\n' "$line" >&2
+    done <<< "$untracked"
+  fi
+}
+
 command_name="${1:-help}"
 if [[ $# -gt 0 ]]; then
   shift
@@ -67,6 +81,7 @@ case "$command_name" in
   check)
     require_nix
     load_feature_overrides
+    warn_untracked_docs
     exec nix --extra-experimental-features 'nix-command flakes' flake check ${nix_override_args[@]+"${nix_override_args[@]}"} "$cc_root" --keep-going "$@"
     ;;
   build)
